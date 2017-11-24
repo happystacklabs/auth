@@ -1,19 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './Home';
+import Register from './Register';
 import App from '../App/App';
 import { MemoryRouter } from 'react-router-dom';
 
 
-describe('Home', () => {
+describe('Register', () => {
   describe('Route', () => {
-    it('render Home on /', () => {
+    it('render Register on /register', () => {
       const app = mount(
-        <MemoryRouter initialEntries={['/']}>
+        <MemoryRouter initialEntries={['/register']}>
           <App/>
         </MemoryRouter>
       );
-      expect(app.containsMatchingElement(<Home/>)).toBe(true);
+      expect(app.containsMatchingElement(<Register/>)).toBe(true);
     });
   });
 });
