@@ -1,11 +1,20 @@
 import React from 'react';
 import './Login.css';
 import { TextInput, Button, Text } from '@happystack/kit';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 
 class Login extends React.Component {
   render() {
+    const passwordAction = {
+      title: 'Forgot Password?',
+      onAction: (event) => {
+        event.preventDefault();
+        this.props.history.push('/password/new');
+      },
+    };
+
     return (
       <div>
         <h1>Login</h1>
@@ -24,6 +33,7 @@ class Login extends React.Component {
                   name='password'
                   label='Password'
                   type='password'
+                  action={passwordAction}
                 />
               </div>
               <Button size='large' color='purple' fullWidth>Sign In</Button>
@@ -38,4 +48,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

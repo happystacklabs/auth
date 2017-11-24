@@ -25,4 +25,16 @@ describe('Login', () => {
     );
     expect(app.containsMatchingElement(<Link to='/register'>Create an account</Link>)).toBe(true);
   });
+
+  describe('Forgot Password?', () => {
+    it('redirect to /password/new', () => {
+      const login = mount(
+        <MemoryRouter>
+          <Login/>
+        </MemoryRouter>
+      );
+      login.find('button').at(0).simulate('click');
+      expect(login.children().props().history.location.pathname).toBe('/password/new');
+    });
+  });
 });

@@ -13,3 +13,6 @@
 
 .form .input, .form button {
   margin-top: 20px; }
+
+.form .action button {
+  margin-top: 0; }
