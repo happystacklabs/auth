@@ -1,0 +1,23 @@
+.panel {
+  background: #FFFFFF;
+  border: 1px solid #DFE2E3;
+  box-shadow: 0 1px 1px 0 #D9DADC;
+  border-radius: 3px;
+  max-width: 380px;
+  margin: auto;
+
+  .panel_content {
+    padding: 20px 30px;
+  }
+
+  .sub_panel {
+    border-top: 1px solid #DFE2E3;
+    padding: 20px 30px;
+  }
+}
+
+.form {
+  .input, button {
+    margin-top: 20px;
+  }
+}

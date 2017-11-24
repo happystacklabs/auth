@@ -20,8 +20,8 @@ const Navigation = props => {
   return (
     <div className='navbar-right'>
       <ul>
-        <li><Text color='inkLight'><NavLink to='/login'>Sign In</NavLink></Text></li>
-        <li><Text color='inkLight'><NavLink to='/register'>Sign Up</NavLink></Text></li>
+        <li><Text><NavLink to='/login'>Sign In</NavLink></Text></li>
+        <li><Text><NavLink to='/register'>Sign Up</NavLink></Text></li>
       </ul>
     </div>
   );

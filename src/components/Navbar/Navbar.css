@@ -16,6 +16,8 @@
     display: inline-block;
     float: left;
     margin-left: 25px; }
+    .navbar ul li a {
+      color: #797D80; }
     .navbar ul li a.active {
       color: #5C6AC4; }
   .navbar .navbar-right {
