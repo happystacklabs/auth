@@ -1,7 +1,21 @@
 {
-  "name": "happystack-auth",
+  "name": "@happystack/auth",
   "version": "0.1.0",
   "private": true,
+  "author": "Heinrich Tremblay",
+  "homepage": "https://auth.happystack.io",
+  "repository": "https://github.com/happystacklabs/auth",
+  "bugs": {
+    "url": "https://github.com/happystacklabs/auth/issues"
+  },
+  "keywords": [
+    "happystack",
+    "auth",
+    "react",
+    "redux",
+    "jwt"
+  ],
+  "license": "MIT",
   "dependencies": {
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
