@@ -1,0 +1,43 @@
+.navbar {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+  height: 56px;
+  line-height: 56px;
+  text-align: left; }
+  .navbar .container {
+    max-width: 1180px;
+    margin: auto;
+    padding: 0 15px; }
+  .navbar ul {
+    margin: 0;
+    padding: 0; }
+  .navbar ul li {
+    list-style: none;
+    display: inline-block;
+    float: left;
+    margin-left: 25px; }
+    .navbar ul li a.active {
+      color: #5C6AC4; }
+  .navbar .navbar-right {
+    float: right; }
+
+.branding {
+  height: 56px;
+  display: inline-block; }
+  .branding img {
+    width: 36px;
+    height: 24px;
+    margin: 0;
+    display: inline-block;
+    padding-top: 16px; }
+  .branding h1 {
+    margin: 0;
+    display: inline-block;
+    margin: 0 5px 0 10px; }
+  .branding span {
+    display: inline-block;
+    margin: 0; }
+  .branding .logo {
+    height: 56px;
+    display: inline-block;
+    float: left; }
