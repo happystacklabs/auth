@@ -5,6 +5,7 @@ import Login from '../Login/Login';
 import Home from '../Home/Home';
 import Register from '../Register/Register';
 import PasswordReset from '../PasswordReset/PasswordReset';
+import Dashboard from '../Dashboard/Dashboard';
 import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>
             <Route path="/password/new" component={PasswordReset}/>
+            <Route path="/dashboard" component={Dashboard}/>
           </Switch>
         </section>
       </div>
