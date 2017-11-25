@@ -1,22 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from './Login';
-import App from '../App/App';
+import { Login } from './Login';
+import { App } from '../App/App';
 import { MemoryRouter, Link } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../../store';
 
 
 describe('Login', () => {
   describe('Route', () => {
-    it('render Login on /Login', () => {
+    it('render Login on /login', () => {
       const app = mount(
-        <MemoryRouter initialEntries={['/login']}>
-          <App/>
-        </MemoryRouter>
+        <Provider store={store}>
+          <MemoryRouter initialEntries={['/login']}>
+            <App/>
+          </MemoryRouter>
+        </Provider>
       );
       expect(app.containsMatchingElement(<Login/>)).toBe(true);
     });
   });
-
   describe('render create account Link', () => {
     const app = mount(
       <MemoryRouter>
@@ -27,14 +30,5 @@ describe('Login', () => {
   });
 
   describe('Forgot Password?', () => {
-    it('redirect to /password/new', () => {
-      const login = mount(
-        <MemoryRouter>
-          <Login/>
-        </MemoryRouter>
-      );
-      login.find('button').at(0).simulate('click');
-      expect(login.children().props().history.location.pathname).toBe('/password/new');
-    });
   });
 });

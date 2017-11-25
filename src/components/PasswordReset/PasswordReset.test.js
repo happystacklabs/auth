@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PasswordReset from './PasswordReset';
-import App from '../App/App';
+import { App } from '../App/App';
 import { MemoryRouter, Link } from 'react-router-dom';
 
 

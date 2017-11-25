@@ -8,8 +8,28 @@ import PasswordReset from '../PasswordReset/PasswordReset';
 import Dashboard from '../Dashboard/Dashboard';
 import Settings from '../Settings/Settings';
 import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { REDIRECT } from '../../constants/actionTypes';
 
-class App extends Component {
+
+const mapStateToProps = state => ({
+  redirectTo: state.common.redirectTo
+});
+
+const mapDispatchToProps = dispatch => ({
+  onRedirect: () =>
+    dispatch({ type: REDIRECT })
+});
+
+
+export class App extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.redirectTo) {
+      this.props.history.push('/password/new');
+      this.props.onRedirect();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -29,4 +49,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

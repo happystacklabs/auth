@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Dashboard from './Dashboard';
-import App from '../App/App';
+import { App } from '../App/App';
 import { MemoryRouter } from 'react-router-dom';
 
 
