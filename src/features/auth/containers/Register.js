@@ -1,10 +1,10 @@
 import React from 'react';
-import './Register.css';
+import '../styles/Register.css';
 import { TextInput, Button, Text } from '@happystack/kit';
 import { Link } from 'react-router-dom';
 
 
-class Register extends React.Component {
+export class Register extends React.Component {
   render() {
     return (
       <div>

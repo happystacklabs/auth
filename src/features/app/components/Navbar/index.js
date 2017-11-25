@@ -27,17 +27,15 @@ const Navigation = props => {
   );
 }
 
-class Navbar extends React.Component {
-  render() {
-    return (
-      <nav className='navbar'>
-        <div className='container'>
-          <Branding/>
-          <Navigation/>
-        </div>
-      </nav>
-    );
-  }
+const Navbar = () => {
+  return (
+    <nav className='navbar'>
+      <div className='container'>
+        <Branding/>
+        <Navigation/>
+      </div>
+    </nav>
+  );
 }
 
 export default Navbar;

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Settings.css';
+import '../styles/Settings.css';
 import { TextInput, Button, Text } from '@happystack/kit';
 import { Link } from 'react-router-dom';
 

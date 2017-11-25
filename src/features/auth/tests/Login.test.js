@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Login } from './Login';
-import { App } from '../App/App';
+import { Login } from '../containers/Login';
+import { App } from '../../app/containers/App';
 import { MemoryRouter, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from '../../store';
+import { store } from '../../../store';
 
 
 describe('Login', () => {

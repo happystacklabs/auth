@@ -1,11 +1,5 @@
-import { createStore, combineReducers } from 'redux';
-import auth from './reducers/auth';
-import common from './reducers/common';
+import { createStore } from 'redux';
+import reducer from './reducer';
 
-
-const reducer = combineReducers({
-  auth,
-  common
-});
 
 export const store = createStore(reducer);

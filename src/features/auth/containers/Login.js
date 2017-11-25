@@ -1,19 +1,18 @@
 import React from 'react';
-import './Login.css';
 import { TextInput, Button, Text } from '@happystack/kit';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import {
-  REDIRECT_PASSWORD_RESET,
-} from '../../constants/actionTypes';
+import { passwordResetRedirect } from '../redux';
+import '../styles/Login.css';
 
 
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
-  onRedirectPasswordReset: () =>
-    dispatch({ type: REDIRECT_PASSWORD_RESET })
+  onRedirectPasswordReset: () => {
+    dispatch(passwordResetRedirect())
+  }
 });
 
 export class Login extends React.Component {

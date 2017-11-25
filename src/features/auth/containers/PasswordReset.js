@@ -1,10 +1,9 @@
 import React from 'react';
-import './PasswordReset.css';
+import '../styles/PasswordReset.css';
 import { TextInput, Button, Text } from '@happystack/kit';
-import { Link } from 'react-router-dom';
 
 
-class PasswordReset extends React.Component {
+export class PasswordReset extends React.Component {
   render() {
     return (
       <div>
@@ -21,8 +20,10 @@ class PasswordReset extends React.Component {
                   />
                 </div>
                 <Button size='large' color='purple' fullWidth>Send Reset Link</Button>
-                <Button plain fullWidth>Cancel</Button>
               </form>
+              <span className='cancel'>
+                <Button plain fullWidth onClick={this.props.history.goBack}>Cancel</Button>
+              </span>
             </div>
           </div>
       </div>

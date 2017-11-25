@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import auth from './reducers/auth';
-import common from './reducers/common';
+import auth from './features/auth/redux';
+import app from './features/app/redux';
+
 
 export default combineReducers({
-  auth,
-  common,
+  app,
+  auth
 });

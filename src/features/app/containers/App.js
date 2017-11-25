@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import './App.css';
-import Navbar from '../Navbar/Navbar';
-import Login from '../Login/Login';
-import Home from '../Home/Home';
-import Register from '../Register/Register';
-import PasswordReset from '../PasswordReset/PasswordReset';
-import Dashboard from '../Dashboard/Dashboard';
-import Settings from '../Settings/Settings';
+import '../styles/App.css';
+import Navbar from '../components/Navbar';
+import Login from '../../auth/containers/Login';
+import Home from '../../../components/Home/Home';
+import Register from '../../auth/containers/Register';
+import PasswordReset from '../../auth/containers/PasswordReset';
+import Dashboard from '../../../components/Dashboard/Dashboard';
+import Settings from '../../settings/containers/Settings';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { REDIRECT } from '../../constants/actionTypes';
+import { redirect } from '../redux';
 
 
 const mapStateToProps = state => ({
-  redirectTo: state.common.redirectTo
+  redirectTo: state.app.redirectTo
 });
 
 const mapDispatchToProps = dispatch => ({
   onRedirect: () =>
-    dispatch({ type: REDIRECT })
+    dispatch(redirect())
 });
 
 
