@@ -3,7 +3,10 @@ import { TextInput, Button, Text } from '@happystack/kit';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { passwordResetRedirect } from '../redux';
+import {
+  passwordResetRedirect,
+  authFieldUpdate
+} from '../redux';
 import '../styles/Login.css';
 
 
@@ -12,6 +15,9 @@ const mapStateToProps = state => ({ ...state.auth });
 const mapDispatchToProps = dispatch => ({
   onRedirectPasswordReset: () => {
     dispatch(passwordResetRedirect())
+  },
+  onChangeEmail: (event) => {
+    dispatch(authFieldUpdate('email', event.value));
   }
 });
 

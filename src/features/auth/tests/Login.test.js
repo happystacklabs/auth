@@ -1,26 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Login } from '../containers/Login';
-import { App } from '../../app/containers/App';
 import { MemoryRouter, Link } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from '../../../store';
+import configureStore from 'redux-mock-store'
+
+const middlewares = []
+const mockStore = configureStore(middlewares)
 
 
 describe('Login', () => {
-  describe('Route', () => {
-    it('render Login on /login', () => {
-      const app = mount(
-        <Provider store={store}>
-          <MemoryRouter initialEntries={['/login']}>
-            <App/>
-          </MemoryRouter>
-        </Provider>
-      );
-      expect(app.containsMatchingElement(<Login/>)).toBe(true);
-    });
-  });
-  describe('render create account Link', () => {
+  it('render create account Link', () => {
     const app = mount(
       <MemoryRouter>
         <Login/>
@@ -30,5 +19,16 @@ describe('Login', () => {
   });
 
   describe('Forgot Password?', () => {
+  });
+
+  describe('dispatch', () => {
+    it('dispatch an action when onChangeEmail()', () => {
+      const login = shallow(
+        <MemoryRouter>
+          <Login/>
+        </MemoryRouter>
+      ).dive();
+      login.find('input').at(1).simulate('click');
+    });
   });
 });
