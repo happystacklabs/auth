@@ -7,10 +7,8 @@ import { MemoryRouter } from 'react-router-dom';
 
 describe('App', () => {
   it('renders Navigation', () => {
-    const app = mount(
-      <MemoryRouter>
-        <App/>
-      </MemoryRouter>
+    const app = shallow(
+      <App/>
     );
     expect(app.containsMatchingElement(<Navbar/>)).toBe(true);
   });

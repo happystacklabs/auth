@@ -6,23 +6,12 @@ import { MemoryRouter, Link } from 'react-router-dom';
 
 
 describe('Register', () => {
-  describe('Route', () => {
-    it('render Register on /register', () => {
-      const app = mount(
-        <MemoryRouter initialEntries={['/register']}>
-          <App/>
-        </MemoryRouter>
-      );
-      expect(app.containsMatchingElement(<Register/>)).toBe(true);
-    });
-  });
-
   describe('render sign in Link', () => {
-    const app = mount(
-      <MemoryRouter>
+    it('render the go back to login link', () => {
+      const register = shallow(
         <Register/>
-      </MemoryRouter>
-    );
-    expect(app.containsMatchingElement(<Link to='/login'>Sign In</Link>)).toBe(true);
+      );
+      expect(register.containsMatchingElement(<Link to='/login'>Sign In</Link>)).toBe(true);
+    });
   });
 });
