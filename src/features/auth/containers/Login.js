@@ -26,7 +26,8 @@ export class Login extends React.Component {
         <h1>Login</h1>
         <div className='panel'>
           <div className='panel_content'>
-            <LoginForm/>
+            <LoginForm
+              onRedirectPasswordReset={this.props.onRedirectPasswordReset}
             />
           </div>
           <div className='sub_panel'>

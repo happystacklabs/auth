@@ -4,8 +4,8 @@ import * as redux from '../redux';
 
 
 
-describe('auth', () => {
-  describe('auth::reducer', () => {
+describe('redux', () => {
+  describe('reducer', () => {
     it('should return the initial state', () => {
       const reducer = redux.authReducer(undefined, {});
       const expectedState = {};
