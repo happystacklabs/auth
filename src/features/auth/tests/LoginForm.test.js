@@ -83,4 +83,53 @@ describe('LoginForm', () => {
       expect(form.containsMatchingElement('Please enter a valid email address')).toBe(true);
     });
   });
+
+  describe('onSubmit()', () => {
+    it('does nothing if the form isnt valid', () => {
+      const spy = jest.fn();
+      const form = mount(
+        <LoginForm onSubmit={spy}/>
+      );
+      form.find('button').at(1).simulate('submit');
+      expect(spy.mock.calls.length).toBe(0);
+    });
+
+    it('send the email and password to the props callback if valid', () => {
+      const spy = jest.fn();
+      const form = mount(
+        <LoginForm onSubmit={spy}/>
+      );
+      form.find('input').at(0).simulate('change', {target: {value: 'foo@hotmail.com'}});
+      form.find('input').at(1).simulate('change', {target: {value: 'foobar'}});
+      form.find('button').at(1).simulate('submit');
+      expect(spy.mock.calls[0]).toEqual(["foo@hotmail.com", "foobar"]);
+    });
+
+    it('dont send the email and password if input are not valid', () => {
+      const spy = jest.fn();
+      const form = mount(
+        <LoginForm onSubmit={spy}/>
+      );
+      form.find('input').at(0).simulate('change', {target: {value: 'foo'}});
+      form.find('input').at(1).simulate('change', {target: {value: 'foo'}});
+      form.find('button').at(1).simulate('submit');
+      expect(spy.mock.calls.length).toBe(0);
+      form.find('input').at(0).simulate('change', {target: {value: 'foo@hotmail.com'}});
+      form.find('input').at(1).simulate('change', {target: {value: 'foo'}});
+      form.find('button').at(1).simulate('submit');
+      expect(spy.mock.calls.length).toBe(0);
+      form.find('input').at(0).simulate('change', {target: {value: ''}});
+      form.find('input').at(1).simulate('change', {target: {value: ''}});
+      form.find('button').at(1).simulate('submit');
+      expect(spy.mock.calls.length).toBe(0);
+      form.find('input').at(0).simulate('change', {target: {value: 'foo@hotmail.com'}});
+      form.find('input').at(1).simulate('change', {target: {value: ''}});
+      form.find('button').at(1).simulate('submit');
+      expect(spy.mock.calls.length).toBe(0);
+      form.find('input').at(0).simulate('change', {target: {value: ''}});
+      form.find('input').at(1).simulate('change', {target: {value: 'fooooooo'}});
+      form.find('button').at(1).simulate('submit');
+      expect(spy.mock.calls.length).toBe(0);
+    });
+  });
 });

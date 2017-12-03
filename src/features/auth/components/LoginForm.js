@@ -30,6 +30,7 @@ const validate = (values) => {
 export class LoginForm extends React.Component {
   static propTypes = {
     onRedirectPasswordReset: PropTypes.func,
+    onSubmit: PropTypes.func,
     isLoading: PropTypes.bool,
   };
 
@@ -64,6 +65,7 @@ export class LoginForm extends React.Component {
   onSubmitForm = (event) => {
     event.preventDefault();
     if (this.isFormValid()) {
+      this.props.onSubmit(this.state.email, this.state.password);
     }
   };
 
