@@ -1,21 +1,18 @@
-import superagentPromise from 'superagent-promise';
-import _superagent from 'superagent';
+import axios from 'axios';
 
 
-const superagent = superagentPromise(_superagent, global.Promise);
+export const API_ROOT = 'https://conduit.productionready.io/api';
 
-const API_ROOT = 'https://conduit.productionready.io/api';
-
-const responseBody = (res) => {
-  return res.body;
+const responseBody = (response) => {
+  return response;
 };
 
 const requests = {
   get: (url) => {
-    return superagent.get(`${API_ROOT}${url}`).then(responseBody);
+    return axios.get(`${API_ROOT}${url}`).then(responseBody);
   },
   post: (url, body) => {
-    return superagent.post(`${API_ROOT}${url}`, body).then(responseBody);
+    return axios.post(`${API_ROOT}${url}`, body).then(responseBody);
   },
 };
 

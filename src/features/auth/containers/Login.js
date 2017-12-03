@@ -40,7 +40,6 @@ export class Login extends React.Component {
               onSubmit={this.props.onSubmit}
               isLoading={this.props.inProgress}
             />
-          { this.props.errors ? this.props.errors['email or password'][0] : '' }
           </div>
           <div className='sub_panel'>
             <Text size='regular'>New? <Link to='/register'>Create an account</Link>.</Text>

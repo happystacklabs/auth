@@ -1,48 +1,82 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as redux from '../redux';
-import { promiseMiddleware } from '../../../middleware';
-import configureMockStore from 'redux-mock-store'
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import moxios from 'moxios';
 
 
-const mockStore = configureMockStore([promiseMiddleware]);
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 describe('redux', () => {
+  beforeEach(function () {
+    moxios.install();
+  });
+
+  afterEach(function () {
+    moxios.uninstall();
+  });
+
   describe('action', () => {
-    beforeEach(function(){
+    it('should create an action LOGIN_START', () => {
+      const expectedAction = { type: redux.LOGIN_START };
+      expect(redux.loginStart()).toEqual(expectedAction);
     });
 
-    describe('login()', () => {
-      const type = redux.LOGIN;
+    it('should create an action LOGIN_SUCCESS', () => {
+      const expectedAction = { type: redux.LOGIN_SUCCESS, response: 'foo' };
+      expect(redux.loginSuccess('foo')).toEqual(expectedAction);
+    });
+
+    it('should create an action LOGIN_FAIL', () => {
+      const expectedAction = { type: redux.LOGIN_FAIL, error: 'bar' };
+      expect(redux.loginFail('bar')).toEqual(expectedAction);
+    });
+
+    it('creates LOGIN_FAIL after failing to post login', () => {
+      const errors = {errors: 'fail'};
+
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 422,
+          response: errors,
+        });
+      });
+
+      const expectedActions = [
+        { type: redux.LOGIN_START },
+        { type: redux.LOGIN_FAIL, error: 'fail' },
+      ];
+
       const store = mockStore({});
 
-      it('return an action with a failing payload', () => {
-        const email = 'foo@bar.com';
-        const password = 'foobar';
-        const payload = {
-          errors: {
-            'email or password': ['is invalid'],
-          }
-        };
-
-        const expectedAction = {
-          type: type,
-          payload: payload,
-        };
-        // console.log(agent.Auth.login.mock.calls);
-        // const action = redux.login(email, password);
-        // expect(action).toEqual(expectedAction);
-        console.log(redux.login(email, password));
-        console.log(store.dispatch(redux.login(email, password)));
-        store.dispatch(redux.login(email, password)).then(() => {
-          expect(store.getActions()).toEqual(expectedAction);
-        });
+      return store.dispatch(redux.login('foo@bar.com', 'foobar')).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
       });
     });
 
-    describe('async_start()', () => {
-      it('should create an async start action with the subtype', () => {
+    it('creates LOGIN_SUCCESS after failing to post login', () => {
+      const payload = {data: 'success'};
 
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: payload,
+        });
+      });
+
+      const expectedActions = [
+        { type: redux.LOGIN_START },
+        { type: redux.LOGIN_SUCCESS, response: payload },
+      ];
+
+      const store = mockStore({});
+
+      return store.dispatch(redux.login('foo@bar.com', 'foobar')).then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
       });
     });
   });
@@ -53,10 +87,29 @@ describe('redux', () => {
       const expectedState = {};
       expect(reducer).toEqual(expectedState);
     });
-    describe('LOGIN', () => {
-      it('should inProgress to null in the state', () => {
 
-      });
+    it('should handle LOGIN_START', () => {
+      expect(
+        redux.authReducer([], { type: redux.LOGIN_START })
+      ).toEqual(
+        { inProgress: true }
+      );
+    });
+
+    it('should handle LOGIN_FAIL', () => {
+      expect(
+        redux.authReducer({ inProgress: true }, { type: redux.LOGIN_FAIL, error: 'foo' })
+      ).toEqual(
+        { inProgress: false, errors: 'foo' }
+      );
+    });
+
+    it('should handle LOGIN_SUCCESS', () => {
+      expect(
+        redux.authReducer({ inProgress: true }, { type: redux.LOGIN_SUCCESS, response: 'bar' })
+      ).toEqual(
+         { inProgress: false }
+      );
     });
   });
 });
