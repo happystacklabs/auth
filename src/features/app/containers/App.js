@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
 export class App extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
-      this.props.history.push('/password/new');
+      this.props.history.push(nextProps.redirectTo);
       this.props.onRedirect();
     }
   }
