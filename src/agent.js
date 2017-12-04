@@ -2,9 +2,14 @@ import axios from 'axios';
 
 
 export const API_ROOT = 'https://conduit.productionready.io/api';
+export let token = null;
 
 export const responseBody = (response) => {
   return response;
+};
+
+export const setToken = (_token) => {
+  token = _token;
 };
 
 export const requests = {
@@ -17,6 +22,9 @@ export const requests = {
 };
 
 export const Auth = {
+  current: () => {
+    return requests.get('/user');
+  },
   login: (email, password) => {
     return requests.post('/users/login', { user: { email, password } });
   },
@@ -25,4 +33,5 @@ export const Auth = {
 
 export default {
   Auth,
+  setToken,
 };

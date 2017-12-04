@@ -70,5 +70,22 @@ describe('agent', () => {
         expect(agent.Auth.login('foo@bar.com', 'bar')).toEqual({ response: 'foo' });
       });
     });
+
+    describe('current', () => {
+      it('make a get request to /user', () => {
+          agent.requests.get = jest.fn();
+          agent.requests.get.mockImplementation(() => { return { user: 'foo' } });
+
+          expect(agent.Auth.current()).toEqual({ user: 'foo' });
+      });
+    });
+  });
+
+  describe('setToken', () => {
+    it('set the token in agent', () => {
+      expect(agent.token).toBe(null);
+      agent.setToken('foo');
+      expect(agent.token).toBe('foo');
+    });
   });
 });
