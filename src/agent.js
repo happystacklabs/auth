@@ -3,11 +3,11 @@ import axios from 'axios';
 
 export const API_ROOT = 'https://conduit.productionready.io/api';
 
-const responseBody = (response) => {
+export const responseBody = (response) => {
   return response;
 };
 
-const requests = {
+export const requests = {
   get: (url) => {
     return axios.get(`${API_ROOT}${url}`).then(responseBody);
   },
@@ -16,7 +16,7 @@ const requests = {
   },
 };
 
-const Auth = {
+export const Auth = {
   login: (email, password) => {
     return requests.post('/users/login', { user: { email, password } });
   },

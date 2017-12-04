@@ -29,10 +29,16 @@ describe('redux', () => {
     });
 
     it('should handle LOGIN_SUCCESS', () => {
+      const response = {
+        user: {
+          token: 'foo'
+        }
+      };
+
       expect(
-        redux.appReducer([], { type: LOGIN_SUCCESS })
+        redux.appReducer([], { type: LOGIN_SUCCESS, response: response })
       ).toEqual(
-        { redirectTo: '/' }
+        { redirectTo: '/', token: response.user.token, currentUser: response.user }
       );
     });
 

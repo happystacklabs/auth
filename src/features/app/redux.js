@@ -14,7 +14,12 @@ export function appReducer (state = {}, action) {
     case REDIRECT:
       return { ...state, redirectTo: null };
       case LOGIN_SUCCESS:
-      return { ...state, redirectTo: '/' };
+      return {
+        ...state,
+        redirectTo: '/',
+        token: action.response.user.token,
+        currentUser: action.response.user
+      };
     default:
       return state;
   }
