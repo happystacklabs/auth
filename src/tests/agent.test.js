@@ -23,7 +23,6 @@ describe('agent', () => {
       it('make a get request and return the body', (done) => {
         const spy = jest.fn();
         agent.requests.get('/').then(spy);
-
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -43,7 +42,6 @@ describe('agent', () => {
       it('make a post request and return the body', (done) => {
         const spy = jest.fn();
         agent.requests.post('/', 'body').then(spy);
-
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -52,6 +50,26 @@ describe('agent', () => {
           }).then(() => {
             expect(request.config.data).toBe('body');
             expect(request.config.method).toBe('post');
+            expect(request.config.url).toBe('https://conduit.productionready.io/api/');
+            expect(spy.mock.calls[0][0].data).toEqual({ payload: 'foo' });
+            done();
+          });
+        });
+      });
+    });
+
+    describe('put', () => {
+      it('make a put request and return the body', (done) => {
+        const spy = jest.fn();
+        agent.requests.put('/', 'body').then(spy);
+        moxios.wait(() => {
+          const request = moxios.requests.mostRecent();
+          request.respondWith({
+            status: 201,
+            response: { payload: 'foo' },
+          }).then(() => {
+            expect(request.config.data).toBe('body');
+            expect(request.config.method).toBe('put');
             expect(request.config.url).toBe('https://conduit.productionready.io/api/');
             expect(spy.mock.calls[0][0].data).toEqual({ payload: 'foo' });
             done();
@@ -83,6 +101,14 @@ describe('agent', () => {
         agent.requests.post = jest.fn();
         agent.requests.post.mockImplementation(() => { return { response: 'foo' }; });
         expect(agent.Auth.register('username', 'foo@bar.com', 'bar')).toEqual({ response: 'foo'});
+      });
+    });
+
+    describe('save', () => {
+      it('make a post put request to /user', () => {
+        agent.requests.put = jest.fn();
+        agent.requests.put.mockImplementation(() => { return { response: 'foo' }; });
+        expect(agent.Auth.save('username', 'foo@bar.com', 'bar')).toEqual({ response: 'foo'});
       });
     });
   });

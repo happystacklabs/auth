@@ -29,6 +29,9 @@ export const requests = {
   post: (url, body) => {
     return axios.post(`${API_ROOT}${url}`, body).then(responseBody);
   },
+  put: (url, body) => {
+    return axios.put(`${API_ROOT}${url}`, body).then(responseBody);
+  }
 };
 
 export const Auth = {
@@ -41,6 +44,9 @@ export const Auth = {
   register: (username, email, password) => {
     return requests.post('/users', { user: { username, email, password } });
   },
+  save: (username, email, password) => {
+    return requests.put('/user', { user: { username, email, password } });
+  }
 };
 
 
