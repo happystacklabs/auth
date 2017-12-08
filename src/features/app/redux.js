@@ -2,6 +2,7 @@ import {
   PASSWORD_RESET_REDIRECT,
   LOGIN_SUCCESS,
   LOGOUT,
+  REGISTER_SUCCESS,
 } from '../auth/redux';
 import agent from '../../agent';
 
@@ -35,6 +36,7 @@ export function appReducer (state = { token: null }, action) {
     case REDIRECT:
       return { ...state, redirectTo: null };
     case LOGIN_SUCCESS:
+    case REGISTER_SUCCESS:
       window.localStorage.setItem('jwt', action.response.user.token);
       agent.setToken(action.response.user.token);
       return {

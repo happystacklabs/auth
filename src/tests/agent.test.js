@@ -65,8 +65,7 @@ describe('agent', () => {
     describe('login', () => {
       it('make a post request with the login information and return a post request', () => {
         agent.requests.post = jest.fn();
-        agent.requests.post.mockImplementation(() => { return { response: 'foo' } });
-
+        agent.requests.post.mockImplementation(() => { return { response: 'foo' }; });
         expect(agent.Auth.login('foo@bar.com', 'bar')).toEqual({ response: 'foo' });
       });
     });
@@ -75,8 +74,15 @@ describe('agent', () => {
       it('make a get request to /user', () => {
           agent.requests.get = jest.fn();
           agent.requests.get.mockImplementation(() => { return { user: 'foo' } });
-
           expect(agent.Auth.current()).toEqual({ user: 'foo' });
+      });
+    });
+
+    describe('register', () => {
+      it('make a post request to /users', () => {
+        agent.requests.post = jest.fn();
+        agent.requests.post.mockImplementation(() => { return { response: 'foo' }; });
+        expect(agent.Auth.register('username', 'foo@bar.com', 'bar')).toEqual({ response: 'foo'});
       });
     });
   });

@@ -38,6 +38,9 @@ export const Auth = {
   login: (email, password) => {
     return requests.post('/users/login', { user: { email, password } });
   },
+  register: (username, email, password) => {
+    return requests.post('/users', { user: { username, email, password } });
+  },
 };
 
 
