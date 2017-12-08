@@ -6,6 +6,7 @@ export const PASSWORD_RESET_REDIRECT = 'PASSWORD_RESET_REDIRECT';
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGOUT = 'LOGOUT';
 
 // reducers
 const defaultState = {};
@@ -21,6 +22,8 @@ export function authReducer(state = defaultState, action) {
     case LOGIN_FAIL:
       return { ...state, inProgress: false, errors: action.error };
       break;
+    case LOGOUT:
+      return { ...state };
     default:
       return state;
   }
@@ -55,6 +58,10 @@ export function login(email, password) {
         dispatch(loginFail(error.response.data.errors));
     });
   };
+}
+
+export function logout() {
+  return { type: LOGOUT };
 }
 
 

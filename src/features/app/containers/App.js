@@ -10,6 +10,7 @@ import Settings from '../../settings/containers/Settings';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { redirect } from '../redux';
+import agent from '../../../agent';
 
 
 const mapStateToProps = state => ({

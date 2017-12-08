@@ -5,7 +5,6 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
 
-
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
@@ -79,6 +78,13 @@ describe('redux', () => {
         expect(store.getActions()).toEqual(expectedActions);
       });
     });
+
+    describe('LOGOUT', () => {
+      it('should create an action LOGOUT', () => {
+        const expectedAction = { type: redux.LOGOUT };
+        expect(redux.logout()).toEqual(expectedAction);
+      });
+    });
   });
 
   describe('reducer', () => {
@@ -104,12 +110,14 @@ describe('redux', () => {
       );
     });
 
-    it('should handle LOGIN_SUCCESS', () => {
-      expect(
-        redux.authReducer({ inProgress: true }, { type: redux.LOGIN_SUCCESS, response: 'bar' })
-      ).toEqual(
-         { inProgress: false }
-      );
+    describe('LOGIN_SUCCESS', () => {
+      it('should handle LOGIN_SUCCESS', () => {
+        expect(
+          redux.authReducer({ inProgress: true }, { type: redux.LOGIN_SUCCESS })
+        ).toEqual(
+           { inProgress: false }
+        );
+      });
     });
   });
 });
