@@ -5,7 +5,7 @@ import { App } from '../../app/containers/App';
 import { MemoryRouter, Link } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from '../../../store';
-import Register from '../containers/Register';
+import { Register } from '../containers/Register';
 import PasswordReset from '../containers/PasswordReset';
 import localStorageMock from '../../../__mocks__/localStorage';
 
@@ -29,9 +29,11 @@ describe('auth::routes', () => {
   describe('Register', () => {
     it('render Register on /register', () => {
       const app = mount(
-        <MemoryRouter initialEntries={['/register']}>
-          <App onLoad={()=>{}} appLoaded/>
-        </MemoryRouter>
+        <Provider store={store}>
+          <MemoryRouter initialEntries={['/register']}>
+            <App onLoad={()=>{}} appLoaded/>
+          </MemoryRouter>
+        </Provider>
       );
       expect(app.containsMatchingElement(<Register/>)).toBe(true);
     });

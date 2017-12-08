@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Register from '../containers/Register';
 import { App } from '../../app/containers/App';
 import { MemoryRouter, Link } from 'react-router-dom';
+import ConnectedRegister, { Register } from '../containers/Register';
 
 
 describe('Register', () => {
