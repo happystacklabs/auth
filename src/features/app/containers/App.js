@@ -11,6 +11,8 @@ import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { redirect } from '../redux';
 import agent from '../../../agent';
+import PropTypes from 'prop-types';
+import { appLoad } from '../redux';
 
 
 const mapStateToProps = state => ({
@@ -18,18 +20,38 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onRedirect: () =>
-    dispatch(redirect())
+  onRedirect: () => {
+    dispatch(redirect());
+  },
+  onLoad: (token) => {
+    dispatch(appLoad(token));
+  },
 });
 
 
 export class App extends Component {
+  static propTypes = {
+    onLoad: PropTypes.func,
+  };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
       this.props.history.push(nextProps.redirectTo);
       this.props.onRedirect();
     }
   }
+
+  componentWillMount() {
+    this.onLoad();
+  }
+
+  onLoad = () => {
+    const token = window.localStorage.getItem('jwt');
+    if (token) {
+      agent.setToken(token);
+    }
+    this.props.onLoad(token);
+  };
 
   render() {
     return (

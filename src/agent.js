@@ -2,7 +2,10 @@ import axios from 'axios';
 
 
 export const API_ROOT = 'https://conduit.productionready.io/api';
+axios.defaults.baseURL = API_ROOT;
+
 export let token = null;
+
 
 export const responseBody = (response) => {
   return response;
@@ -10,6 +13,13 @@ export const responseBody = (response) => {
 
 export const setToken = (_token) => {
   token = _token;
+  setAuthHeaders(token);
+};
+
+export const setAuthHeaders = (token) => {
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+  }
 };
 
 export const requests = {

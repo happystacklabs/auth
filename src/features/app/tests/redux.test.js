@@ -6,15 +6,77 @@ import {
 } from '../../auth/redux';
 import localStorageMock from '../../../__mocks__/localStorage';
 import agent from '../../../agent';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import moxios from 'moxios';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 
 window.localStorage = localStorageMock;
 
 describe('redux', () => {
+  beforeEach(function () {
+    moxios.install();
+  });
+
+  afterEach(function () {
+    moxios.uninstall();
+  });
+
   describe('action', () => {
     it('should create an action REDIRECT', () => {
       const expectedAction = { type: redux.REDIRECT };
       expect(redux.redirect()).toEqual(expectedAction);
+    });
+
+    describe('APP_LOAD', () => {
+      it('should create an action APP_LOAD_SUCCESS', () => {
+        const expectedAction = { type: redux.APP_LOAD_SUCCESS, response: 'foo' };
+        expect(redux.appLoadSuccess('foo')).toEqual(expectedAction);
+      });
+
+      it('should create an action APP_LOAD_START', () => {
+        const expectedAction = { type: redux.APP_LOAD_START };
+        expect(redux.appLoadStart()).toEqual(expectedAction);
+      });
+
+      it('should create an action APP_LOAD_SUCCESS after getting current user with token', () => {
+        const payload = { data: { user: 'foo' } };
+        const token = 'foo';
+        moxios.wait(() => {
+          const request = moxios.requests.mostRecent();
+          request.respondWith({
+            status: 200,
+            response: payload,
+          });
+        });
+        const expectedActions = [
+          { type: redux.APP_LOAD_START },
+          { type: redux.APP_LOAD_SUCCESS, response: payload.user, token },
+        ];
+        const store = mockStore({});
+        return store.dispatch(redux.appLoad(token)).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
+
+      it('should create an action APP_LOAD_SUCCESS when token is null', () => {
+        const token = '';
+        const expectedActions = [
+          { type: redux.APP_LOAD_START },
+          { type: redux.APP_LOAD_SUCCESS, response: null, token: null },
+        ];
+        const store = mockStore({});
+        store.dispatch(redux.appLoad(token));
+        expect(store.getActions()).toEqual(expectedActions);
+      });
+
+      it('should create an action APP_LOAD_FAIL', () => {
+        const expectedAction = { type: redux.APP_LOAD_FAIL };
+        expect(redux.appLoadFail()).toEqual(expectedAction);
+      });
     });
   });
 
@@ -95,6 +157,46 @@ describe('redux', () => {
         expect(window.localStorage.getItem('jwt')).toBe('token');
         redux.appReducer({}, { type: LOGOUT });
         expect(window.localStorage.getItem('jwt')).toBe('');
+      });
+    });
+
+    describe('APP_LOAD', () => {
+      it('should handle APP_LOAD_START', () => {
+        expect(
+          redux.appReducer([], { type: redux.APP_LOAD_START })
+        ).toEqual(
+          { appLoaded: false }
+        );
+      });
+
+      it('should handle APP_LOAD_SUCCESS with empty user and token', () => {
+        const response = null;
+        const token = null;
+        expect(
+          redux.appReducer([], { type: redux.APP_LOAD_SUCCESS, response, token })
+        ).toEqual(
+          { appLoaded: true, currentUser: response, token: token }
+        );
+      });
+
+      it('should handle APP_LOAD_SUCCESS with user and token', () => {
+        const response = { user: 'foo' };
+        const token = 'bar';
+        expect(
+          redux.appReducer([], { type: redux.APP_LOAD_SUCCESS, response, token })
+        ).toEqual(
+          { appLoaded: true, currentUser: response, token: token }
+        );
+      });
+
+      it('should handle APP_LOAD_FAIL', () => {
+        const response = null;
+        const token = null;
+        expect(
+          redux.appReducer([], { type: redux.APP_LOAD_FAIL })
+        ).toEqual(
+          { appLoaded: true, currentUser: response, token: token }
+        );
       });
     });
   });
