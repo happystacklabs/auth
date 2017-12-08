@@ -6,6 +6,7 @@ import { MemoryRouter as Router } from 'react-router-dom';
 import localStorageMock from '../../../__mocks__/localStorage';
 import { Provider } from 'react-redux';
 import { store } from '../../../store';
+import { Spinner } from '@happystack/kit';
 
 
 window.localStorage = localStorageMock;
@@ -17,9 +18,18 @@ import agent from '../../../agent';
 describe('App', () => {
   it('renders Navigation', () => {
     const app = shallow(
-      <App onLoad={()=>{}}/>
+      <App onLoad={()=>{}} appLoaded/>
     );
     expect(app.containsMatchingElement(<Navbar/>)).toBe(true);
+  });
+
+  it('renders a loading spinner until app is loaded', () => {
+    const app = mount(
+      <Router>
+        <App onLoad={()=>{}}/>
+      </Router>
+    );
+    expect(app.contains('Loading...')).toBe(true);
   });
 
   describe('onLoad()', () => {

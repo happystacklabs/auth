@@ -13,7 +13,7 @@ describe('Home', () => {
     it('render Home on /', () => {
       const app = mount(
         <MemoryRouter initialEntries={['/']}>
-          <App onLoad={()=>{}}/>
+          <App onLoad={()=>{}} appLoaded/>
         </MemoryRouter>
       );
       expect(app.containsMatchingElement(<Home/>)).toBe(true);

@@ -13,7 +13,7 @@ describe('Dashboard', () => {
     it('render Dashboard on /dashboard', () => {
       const app = mount(
         <MemoryRouter initialEntries={['/dashboard']}>
-          <App onLoad={()=>{}}/>
+          <App onLoad={()=>{}} appLoaded/>
         </MemoryRouter>
       );
       expect(app.containsMatchingElement(<Dashboard/>)).toBe(true);

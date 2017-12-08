@@ -13,7 +13,7 @@ describe('Settings', () => {
     it('render Settings on /settings', () => {
       const app = mount(
         <MemoryRouter initialEntries={['/settings']}>
-          <App onLoad={()=>{}}/>
+          <App onLoad={()=>{}} appLoaded/>
         </MemoryRouter>
       );
       expect(app.containsMatchingElement(<Settings/>)).toBe(true);

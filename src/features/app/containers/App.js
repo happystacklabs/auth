@@ -13,10 +13,13 @@ import { redirect } from '../redux';
 import agent from '../../../agent';
 import PropTypes from 'prop-types';
 import { appLoad } from '../redux';
+import { Spinner } from '@happystack/kit';
 
 
 const mapStateToProps = state => ({
-  redirectTo: state.app.redirectTo
+  redirectTo: state.app.redirectTo,
+  currentUser: state.app.currentUser,
+  appLoaded: state.app.appLoaded,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -54,21 +57,32 @@ export class App extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <Navbar/>
-        <section className='mainContainer'>
-          <Switch>
-            <Route exact path='/' component={Home}/>
-            <Route path='/login' component={Login}/>
-            <Route path='/register' component={Register}/>
-            <Route path='/password/new' component={PasswordReset}/>
-            <Route path='/dashboard' component={Dashboard}/>
-            <Route path='/settings' component={Settings}/>
-          </Switch>
-        </section>
-      </div>
-    );
+    if (!this.props.appLoaded) {
+      return (
+        <div>
+          <Navbar loading/>
+          <section className='mainContainer'>
+            <Spinner className='loadingApp' type='loader1' color='inkLight' size='large'></Spinner>
+          </section>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Navbar currentUser={this.props.currentUser}/>
+          <section className='mainContainer'>
+            <Switch>
+              <Route exact path='/' component={Home}/>
+              <Route path='/login' component={Login}/>
+              <Route path='/register' component={Register}/>
+              <Route path='/password/new' component={PasswordReset}/>
+              <Route path='/dashboard' component={Dashboard}/>
+              <Route path='/settings' component={Settings}/>
+            </Switch>
+          </section>
+        </div>
+      );
+    }
   }
 }
 

@@ -18,7 +18,7 @@ describe('auth::routes', () => {
       const app = mount(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/login']}>
-            <App onLoad={()=>{}}/>
+            <App onLoad={()=>{}} appLoaded/>
           </MemoryRouter>
         </Provider>
       );
@@ -30,7 +30,7 @@ describe('auth::routes', () => {
     it('render Register on /register', () => {
       const app = mount(
         <MemoryRouter initialEntries={['/register']}>
-          <App onLoad={()=>{}}/>
+          <App onLoad={()=>{}} appLoaded/>
         </MemoryRouter>
       );
       expect(app.containsMatchingElement(<Register/>)).toBe(true);
@@ -41,7 +41,7 @@ describe('auth::routes', () => {
     it('render PasswordReset on /password/new', () => {
       const app = mount(
         <MemoryRouter initialEntries={['/password/new']}>
-          <App onLoad={()=>{}}/>
+          <App onLoad={()=>{}} appLoaded/>
         </MemoryRouter>
       );
       expect(app.containsMatchingElement(<PasswordReset/>)).toBe(true);
