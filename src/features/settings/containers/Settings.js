@@ -2,40 +2,40 @@ import React from 'react';
 import '../styles/Settings.css';
 import { TextInput, Button, Text } from '@happystack/kit';
 import { Link } from 'react-router-dom';
+import { SettingsForm } from '../components/SettingsForm';
+import { save } from '../redux';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+
+const mapStateToProps = state => ({
+  ...state.auth,
+  currentUser: state.app.currentUser,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (username, email, password) => {
+    dispatch(save(username, email, password));
+  }
+});
 
 class Settings extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func,
+    inProgress: PropTypes.bool,
+  };
+
   render() {
     return (
       <div>
         <h1>Settings</h1>
           <div className='panel settings_panel'>
             <div className='panel_content'>
-              <form className='form'>
-                <div className='input'>
-                  <TextInput
-                    name='username'
-                    label='Username'
-                    type='text'
-                  />
-                </div>
-                <div className='input'>
-                  <TextInput
-                    name='email'
-                    label='Email address'
-                    type='email'
-                  />
-                </div>
-                <div className='input'>
-                  <TextInput
-                    name='password'
-                    label='Password'
-                    type='password'
-                    helpText='Use at least one lowercase letter, one numeral, and minimum seven characters.'
-                  />
-                </div>
-                <Button size='large' color='purple' fullWidth>Update</Button>
-              </form>
+              <SettingsForm
+                onSubmit={this.props.onSubmit}
+                isLoading={this.props.inProgress}
+                currentUser={this.props.currentUser}
+              />
             </div>
           </div>
       </div>
@@ -43,4 +43,4 @@ class Settings extends React.Component {
   }
 }
 
-export default Settings;
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

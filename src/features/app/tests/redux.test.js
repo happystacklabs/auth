@@ -5,6 +5,7 @@ import {
   LOGOUT,
   REGISTER_SUCCESS,
 } from '../../auth/redux';
+import { SETTINGS_SAVE_SUCCESS } from '../../settings/redux';
 import localStorageMock from '../../../__mocks__/localStorage';
 import agent from '../../../agent';
 import configureMockStore from 'redux-mock-store';
@@ -238,6 +239,46 @@ describe('redux', () => {
         ).toEqual(
           { appLoaded: true, currentUser: response, token: token }
         );
+      });
+    });
+
+    describe('SETTINGS', () => {
+      it('should handle SETTINGS_SAVE_SUCCESS', () => {
+        const response = {
+          user: {
+            token: 'foo'
+          }
+        };
+        expect(
+          redux.appReducer([], { type: SETTINGS_SAVE_SUCCESS, response: response })
+        ).toEqual(
+          { redirectTo: '/', token: response.user.token, currentUser: response.user }
+        );
+      });
+
+      it('should set token to agent', () => {
+        agent.setToken = jest.fn();
+        const response = {
+          user: {
+            token: 'foo',
+          }
+        };
+        expect(agent.setToken.mock.calls.length).toBe(0);
+        redux.appReducer({}, { type: SETTINGS_SAVE_SUCCESS, response: response });
+        expect(agent.setToken.mock.calls.length).toBe(1);
+        expect(agent.setToken.mock.calls[0][0]).toBe('foo');
+      });
+
+      it('should add the token to localStorage', () => {
+        window.localStorage.setItem('jwt', '');
+        const response = {
+          user: {
+            token: 'foo',
+          }
+        };
+        expect(window.localStorage.getItem('jwt')).toBe('');
+        redux.appReducer({}, { type: SETTINGS_SAVE_SUCCESS, response: response });
+        expect(window.localStorage.getItem('jwt')).toBe('foo');
       });
     });
   });

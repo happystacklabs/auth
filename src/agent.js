@@ -45,7 +45,12 @@ export const Auth = {
     return requests.post('/users', { user: { username, email, password } });
   },
   save: (username, email, password) => {
-    return requests.put('/user', { user: { username, email, password } });
+    const user = { username: username, email:email, password:password };
+    if (!user.password) {
+      delete user.password;
+    }
+
+    return requests.put('/user', { user } );
   }
 };
 
