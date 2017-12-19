@@ -20,21 +20,17 @@ export function authReducer(state = defaultState, action) {
     case LOGIN_START:
     case REGISTER_START:
       return { ...state, inProgress: true };
-      break;
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
       return { ...state, inProgress: false };
-      break;
     case LOGIN_FAIL:
     case REGISTER_FAIL:
       return { ...state, inProgress: false, errors: action.error };
-      break;
     case LOGOUT:
       return { ...state };
     default:
       return state;
   }
-  return state;
 }
 
 // actions

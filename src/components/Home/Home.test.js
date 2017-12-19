@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Home from './Home';
-import { App } from '../../features/app/containers/App';
-import { MemoryRouter } from 'react-router-dom';
+import {App} from '../../features/app/containers/App';
+import {MemoryRouter} from 'react-router-dom';
 import localStorageMock from '../../__mocks__/localStorage';
+import {mount} from 'enzyme';
 
 
 window.localStorage = localStorageMock;
@@ -13,10 +13,10 @@ describe('Home', () => {
     it('render Home on /', () => {
       const app = mount(
         <MemoryRouter initialEntries={['/']}>
-          <App onLoad={()=>{}} appLoaded/>
+          <App onLoad={()=>{}} appLoaded />
         </MemoryRouter>
       );
-      expect(app.containsMatchingElement(<Home/>)).toBe(true);
+      expect(app.containsMatchingElement(<Home />)).toBe(true);
     });
   });
 });

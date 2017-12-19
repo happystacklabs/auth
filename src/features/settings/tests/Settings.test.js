@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Settings from '../containers/Settings';
-import { App } from '../../app/containers/App';
-import { MemoryRouter, Link } from 'react-router-dom';
+import {App} from '../../app/containers/App';
+import {MemoryRouter} from 'react-router-dom';
 import localStorageMock from '../../../__mocks__/localStorage';
-import { Provider } from 'react-redux';
-import { store } from '../../../store';
+import {Provider} from 'react-redux';
+import {store} from '../../../store';
+import {mount} from 'enzyme';
 
 
 window.localStorage = localStorageMock;
@@ -16,11 +16,11 @@ describe('Settings', () => {
       const app = mount(
         <Provider store={store}>
           <MemoryRouter initialEntries={['/settings']}>
-            <App onLoad={()=>{}} appLoaded/>
+            <App onLoad={()=>{}} appLoaded />
           </MemoryRouter>
         </Provider>
       );
-      expect(app.containsMatchingElement(<Settings/>)).toBe(true);
+      expect(app.containsMatchingElement(<Settings />)).toBe(true);
     });
   });
 });

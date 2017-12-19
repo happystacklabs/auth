@@ -1,32 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ConnectedApp, { App } from '../containers/App';
+import {App} from '../containers/App';
 import Navbar from '../components/Navbar';
 import { MemoryRouter as Router } from 'react-router-dom';
 import localStorageMock from '../../../__mocks__/localStorage';
-import { Provider } from 'react-redux';
-import { store } from '../../../store';
-import { Spinner } from '@happystack/kit';
-
+import agent from '../../../agent';
+import {shallow, mount} from 'enzyme';
 
 window.localStorage = localStorageMock;
 
 jest.mock('../../../agent');
-import agent from '../../../agent';
+
 
 
 describe('App', () => {
   it('renders Navigation', () => {
     const app = shallow(
-      <App onLoad={()=>{}} appLoaded/>
+      <App onLoad={()=>{}} appLoaded />
     );
-    expect(app.containsMatchingElement(<Navbar/>)).toBe(true);
+    expect(app.containsMatchingElement(<Navbar />)).toBe(true);
   });
 
   it('renders a loading spinner until app is loaded', () => {
     const app = mount(
       <Router>
-        <App onLoad={()=>{}}/>
+        <App onLoad={()=>{}} />
       </Router>
     );
     expect(app.contains('Loading...')).toBe(true);
@@ -35,9 +32,9 @@ describe('App', () => {
   describe('onLoad()', () => {
     it('call onLoad when component will mount', () => {
       const spy = jest.fn();
-      const app = mount(
+      mount(
         <Router>
-          <App onLoad={spy}/>
+          <App onLoad={spy} />
         </Router>
       );
       expect(spy.mock.calls.length).toBe(1);
@@ -47,9 +44,9 @@ describe('App', () => {
       agent.setToken = jest.fn();
       window.localStorage.setItem('jwt', '');
       expect(agent.setToken.mock.calls.length).toBe(0);
-      const app = mount(
+      mount(
         <Router>
-          <App onLoad={()=>{}}/>
+          <App onLoad={()=>{}} />
         </Router>
       );
       expect(agent.setToken.mock.calls.length).toBe(0);
@@ -60,9 +57,9 @@ describe('App', () => {
       const spy = jest.fn();
       window.localStorage.setItem('jwt', 'foo');
       expect(agent.setToken.mock.calls.length).toBe(0);
-      const app = mount(
+      mount(
         <Router>
-          <App onLoad={spy}/>
+          <App onLoad={spy} />
         </Router>
       );
       expect(agent.setToken.mock.calls.length).toBe(1);

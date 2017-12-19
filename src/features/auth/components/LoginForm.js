@@ -1,11 +1,93 @@
 import React from 'react';
-import { TextInput, Button, Text } from '@happystack/kit';
+import {TextInput, Button} from '@happystack/kit';
 import validator from 'validator';
 import '../styles/Login.css';
 import PropTypes from 'prop-types';
 
 
-const validate = (values) => {
+const propTypes = {
+  onRedirectPasswordReset: PropTypes.func,
+  onSubmit: PropTypes.func,
+  isLoading: PropTypes.bool,
+};
+
+const defaultProps = {
+  isLoading: false,
+};
+
+export class LoginForm extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: '',
+      errors: {},
+    };
+  }
+
+  onChangeInput = (event) => {
+    this.setState({[event.name]: event.value}, clearErrorField(this, event.name));
+  };
+
+  onSubmitForm = (event) => {
+    event.preventDefault();
+    if (isFormValid(this)) {
+      this.props.onSubmit(this.state.email, this.state.password);
+    }
+  };
+
+  onKeyPress = (event) => {
+    if (event.which === 13) {
+      event.preventDefault();
+    }
+  };
+
+
+  render() {
+    const passwordAction = {
+      title: 'Forgot Password?',
+      onAction: () => {
+        this.props.onRedirectPasswordReset();
+      },
+    };
+
+    return (
+      <form className="form" onSubmit={this.onSubmitForm} onKeyPress={this.onKeyPress}>
+        <div className="input">
+          <TextInput
+            name="email"
+            label="Email address"
+            type="email"
+            onChange={this.onChangeInput}
+            value={this.state.email}
+            error={this.state.errors.email}
+          />
+        </div>
+        <div className="input">
+          <TextInput
+            name="password"
+            label="Password"
+            type="password"
+            action={passwordAction}
+            onChange={this.onChangeInput}
+            value={this.state.password}
+            error={this.state.errors.password}
+          />
+        </div>
+        <Button
+          size="large"
+          color="purple"
+          fullWidth
+          loading={this.props.isLoading}
+        >
+          Sign In
+        </Button>
+      </form>
+    );
+  }
+}
+
+function validate(values) {
   const errors = {isValid: true};
   // Email validation
   if (!values.email) {
@@ -26,90 +108,18 @@ const validate = (values) => {
   return errors;
 };
 
-
-export class LoginForm extends React.Component {
-  static propTypes = {
-    onRedirectPasswordReset: PropTypes.func,
-    onSubmit: PropTypes.func,
-    isLoading: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    isLoading: false,
-  };
-
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      password: '',
-      errors: {},
-    };
-  }
-
-  isFormValid = () => {
-    const errors = validate(this.state);
-    this.setState({ errors });
-    return errors.isValid;
-  };
-
-  clearErrorField = (name) => {
-    const errors = {...this.state.errors, [name]: ''};
-    this.setState({errors});
-  };
-
-  onChangeInput = (event) => {
-    this.setState({ [event.name]: event.value }, this.clearErrorField(event.name));
-  };
-
-  onSubmitForm = (event) => {
-    event.preventDefault();
-    if (this.isFormValid()) {
-      this.props.onSubmit(this.state.email, this.state.password);
-    }
-  };
-
-  render() {
-    const passwordAction = {
-      title: 'Forgot Password?',
-      onAction: (event) => {
-        event.preventDefault();
-        this.props.onRedirectPasswordReset();
-      },
-    };
-
-    return (
-      <form className='form' onSubmit={this.onSubmitForm}>
-        <div className='input'>
-          <TextInput
-            name='email'
-            label='Email address'
-            type='email'
-            onChange={this.onChangeInput}
-            value={this.state.email}
-            error={this.state.errors.email}
-          />
-        </div>
-        <div className='input'>
-          <TextInput
-            name='password'
-            label='Password'
-            type='password'
-            action={passwordAction}
-            onChange={this.onChangeInput}
-            value={this.state.password}
-            error={this.state.errors.password}
-          />
-        </div>
-        <Button
-          size='large'
-          color='purple'
-          fullWidth
-          loading={this.props.isLoading}
-        >Sign In</Button>
-      </form>
-    );
-  }
+function isFormValid(_this) {
+  const errors = validate(_this.state);
+  _this.setState({ errors });
+  return errors.isValid;
 }
+
+function clearErrorField(_this, name) {
+  const errors = {..._this.state.errors, [name]: ''};
+  _this.setState({errors});
+};
+
+LoginForm.propTypes = propTypes;
+LoginForm.defaultProps = defaultProps;
 
 export default LoginForm;

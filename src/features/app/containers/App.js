@@ -14,6 +14,7 @@ import agent from '../../../agent';
 import PropTypes from 'prop-types';
 import { appLoad } from '../redux';
 import { Spinner } from '@happystack/kit';
+import { logout } from '../../auth/redux';
 
 
 const mapStateToProps = state => ({
@@ -29,14 +30,16 @@ const mapDispatchToProps = dispatch => ({
   onLoad: (token) => {
     dispatch(appLoad(token));
   },
+  logout: () => {
+    dispatch(logout());
+  },
 });
 
+const propTypes = {
+  onLoad: PropTypes.func,
+};
 
 export class App extends Component {
-  static propTypes = {
-    onLoad: PropTypes.func,
-  };
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
       this.props.history.push(nextProps.redirectTo);
@@ -60,24 +63,24 @@ export class App extends Component {
     if (!this.props.appLoaded) {
       return (
         <div>
-          <Navbar loading/>
-          <section className='mainContainer'>
-            <Spinner className='loadingApp' type='loader1' color='inkLight' size='large'></Spinner>
+          <Navbar loading />
+          <section className="mainContainer">
+            <Spinner className="loadingApp" type="loader1" color="inkLight" size="large" />
           </section>
         </div>
       );
     } else {
       return (
         <div>
-          <Navbar currentUser={this.props.currentUser}/>
-          <section className='mainContainer'>
+          <Navbar currentUser={this.props.currentUser} logout={this.props.logout} />
+          <section className="mainContainer">
             <Switch>
-              <Route exact path='/' component={Home}/>
-              <Route path='/login' component={Login}/>
-              <Route path='/register' component={Register}/>
-              <Route path='/password/new' component={PasswordReset}/>
-              <Route path='/dashboard' component={Dashboard}/>
-              <Route path='/settings' component={Settings}/>
+              <Route exact path="/" component={Home} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
+              <Route path="/password/new" component={PasswordReset} />
+              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/settings" component={Settings} />
             </Switch>
           </section>
         </div>
@@ -85,5 +88,7 @@ export class App extends Component {
     }
   }
 }
+
+App.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,17 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { App } from '../../app/containers/App';
-import { MemoryRouter, Link } from 'react-router-dom';
-import ConnectedRegister, { Register } from '../containers/Register';
-
+import {Link} from 'react-router-dom';
+import {Register} from '../containers/Register';
+import {shallow} from 'enzyme';
 
 describe('Register', () => {
   describe('render sign in Link', () => {
     it('render the go back to login link', () => {
       const register = shallow(
-        <Register/>
+        <Register />
       );
-      expect(register.containsMatchingElement(<Link to='/login'>Sign In</Link>)).toBe(true);
+      expect(register.containsMatchingElement(<Link to="/login">Sign In</Link>)).toBe(true);
     });
   });
 });

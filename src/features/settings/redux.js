@@ -12,17 +12,13 @@ export function settingsReducer(state = defaultState, action) {
   switch (action.type) {
     case SETTINGS_SAVE_START:
       return { ...state, inProgress: true };
-      break;
     case SETTINGS_SAVE_SUCCESS:
       return { ...state, inProgress: false };
-      break;
     case SETTINGS_SAVE_FAIL:
       return { ...state, inProgress: false, errors: action.error };
-      break;
     default:
       return state;
   }
-  return state;
 }
 
 // actions

@@ -1,17 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ConnectedLogin, { Login } from '../containers/Login';
-import { MemoryRouter, Link } from 'react-router-dom';
-import * as redux from '../redux';
+import {Login} from '../containers/Login';
+import {Link} from 'react-router-dom';
+import {shallow} from 'enzyme';
 
 
 describe('Login', () => {
   describe('create account link', () => {
     it('render create account Link', () => {
       const login = shallow(
-        <Login/>
+        <Login />
       );
-      expect(login.containsMatchingElement(<Link to='/register'>Create an account</Link>)).toBe(true);
+      expect(login.containsMatchingElement(<Link to="/register">Create an account</Link>)).toBe(true);
     });
   });
 });

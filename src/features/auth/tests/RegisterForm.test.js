@@ -1,13 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import RegisterForm from '../components/RegisterForm';
+import {mount} from 'enzyme';
 
 
 describe('RegisterForm', () => {
   describe('onChangeInput()', () => {
     it('will update the username value', () => {
       const form = mount(
-        <RegisterForm/>
+        <RegisterForm />
       );
       form.find('input').at(0).simulate('change', {target: {value: 'foo'}});
       expect(form.find('input').at(0).props().value).toBe('foo');
@@ -15,7 +15,7 @@ describe('RegisterForm', () => {
 
     it('will update the password value', () => {
       const form = mount(
-        <RegisterForm/>
+        <RegisterForm />
       );
       form.find('input').at(1).simulate('change', {target: {value: 'foo'}});
       expect(form.find('input').at(1).props().value).toBe('foo');
@@ -23,7 +23,7 @@ describe('RegisterForm', () => {
 
     it('will update the password value', () => {
       const form = mount(
-        <RegisterForm/>
+        <RegisterForm />
       );
       form.find('input').at(2).simulate('change', {target: {value: 'foo'}});
       expect(form.find('input').at(2).props().value).toBe('foo');
@@ -33,7 +33,7 @@ describe('RegisterForm', () => {
   describe('validate', () => {
     it('show error message if username, email and password are empty', () => {
       const form = mount(
-        <RegisterForm/>
+        <RegisterForm />
       );
       form.find('button').at(0).simulate('submit');
       expect(form.containsMatchingElement('Please enter a username')).toBe(true);
@@ -43,7 +43,7 @@ describe('RegisterForm', () => {
 
     it('show error message if password is less than 5 characters', () => {
       const form = mount(
-        <RegisterForm/>
+        <RegisterForm />
       );
       form.find('input').at(2).simulate('change', {target: {value: 'foo'}});
       form.find('button').at(0).simulate('submit');
@@ -52,7 +52,7 @@ describe('RegisterForm', () => {
 
     it('show error message if username is less than 5 characters', () => {
       const form = mount(
-        <RegisterForm/>
+        <RegisterForm />
       );
       form.find('input').at(0).simulate('change', {target: {value: 'foo'}});
       form.find('button').at(0).simulate('submit');
@@ -61,7 +61,7 @@ describe('RegisterForm', () => {
 
     it('should clear the input error message when start typing again', () => {
       const form = mount(
-        <RegisterForm/>
+        <RegisterForm />
       );
       form.find('button').at(0).simulate('submit');
       form.find('input').at(0).simulate('change', {target: {value: 'foo'}});
@@ -80,7 +80,7 @@ describe('RegisterForm', () => {
 
     it('show error message if email is not valid', () => {
       const form = mount(
-        <RegisterForm/>
+        <RegisterForm />
       );
       form.find('input').at(1).simulate('change', {target: {value: 'foo'}});
       form.find('button').at(0).simulate('submit');
@@ -92,7 +92,7 @@ describe('RegisterForm', () => {
     it('does nothing if the form isnt valid', () => {
       const spy = jest.fn();
       const form = mount(
-        <RegisterForm onSubmit={spy}/>
+        <RegisterForm onSubmit={spy} />
       );
       form.find('button').at(0).simulate('submit');
       expect(spy.mock.calls.length).toBe(0);
@@ -101,7 +101,7 @@ describe('RegisterForm', () => {
     it('send the username, email and password to the props callback if valid', () => {
       const spy = jest.fn();
       const form = mount(
-        <RegisterForm onSubmit={spy}/>
+        <RegisterForm onSubmit={spy} />
       );
       form.find('input').at(0).simulate('change', {target: {value: 'foobar'}});
       form.find('input').at(1).simulate('change', {target: {value: 'foo@hotmail.com'}});
@@ -113,7 +113,7 @@ describe('RegisterForm', () => {
     it('dont send the username, email and password if input are not valid', () => {
       const spy = jest.fn();
       const form = mount(
-        <RegisterForm onSubmit={spy}/>
+        <RegisterForm onSubmit={spy} />
       );
       form.find('input').at(0).simulate('change', {target: {value: 'foo'}});
       form.find('input').at(1).simulate('change', {target: {value: 'foo'}});
@@ -151,7 +151,7 @@ describe('RegisterForm', () => {
   describe('isLoading', () => {
     it('set the submit button to loading when passed to props', () => {
       const form = mount(
-        <RegisterForm isLoading/>
+        <RegisterForm isLoading />
       );
       expect(form.find('button').at(0).find('Spinner').length).toBe(1);
     });

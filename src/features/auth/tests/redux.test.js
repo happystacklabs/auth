@@ -1,5 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import * as redux from '../redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';

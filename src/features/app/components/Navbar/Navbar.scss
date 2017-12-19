@@ -5,6 +5,21 @@
   line-height: 56px;
   text-align: left;
 
+  .logout {
+    color: #797D80;
+    cursor: pointer;
+
+    &.kit-Button__button--plain,
+    &.kit-Button__button--plain span {
+      padding: 0;
+    }
+  }
+
+  a:hover,
+  .logout:hover {
+    color: #5C6AC4;
+  }
+
   .container {
     max-width: 1180px;
     margin: auto;

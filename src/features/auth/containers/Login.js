@@ -1,7 +1,7 @@
 import React from 'react';
-import { TextInput, Button, Text } from '@happystack/kit';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {Text} from '@happystack/kit';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import LoginForm from '../components/LoginForm';
 import PropTypes from 'prop-types';
 import {
@@ -22,32 +22,32 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export class Login extends React.Component {
-  static propTypes = {
-    onRedirectPasswordReset: PropTypes.func,
-    onSubmit: PropTypes.func,
-    inProgress: PropTypes.bool,
-  };
+const propTypes = {
+  onRedirectPasswordReset: PropTypes.func,
+  onSubmit: PropTypes.func,
+  inProgress: PropTypes.bool,
+};
 
-  render() {
-    return (
-      <div>
-        <h1>Login</h1>
-        <div className='panel'>
-          <div className='panel_content'>
-            <LoginForm
-              onRedirectPasswordReset={this.props.onRedirectPasswordReset}
-              onSubmit={this.props.onSubmit}
-              isLoading={this.props.inProgress}
-            />
-          </div>
-          <div className='sub_panel'>
-            <Text size='regular'>New? <Link to='/register'>Create an account</Link>.</Text>
-          </div>
+export function Login(props) {
+  return (
+    <div>
+      <h1>Login</h1>
+      <div className="panel">
+        <div className="panel_content">
+          <LoginForm
+            onRedirectPasswordReset={props.onRedirectPasswordReset}
+            onSubmit={props.onSubmit}
+            isLoading={props.inProgress}
+          />
+        </div>
+        <div className="sub_panel">
+          <Text size="regular">New? <Link to="/register">Create an account</Link>.</Text>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
+
+Login.propTypes = propTypes;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

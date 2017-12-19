@@ -43,7 +43,7 @@ export function appReducer (state = { token: null }, action) {
       agent.setToken(action.response.user.token);
       return {
         ...state,
-        redirectTo: '/',
+        redirectTo: '/dashboard',
         token: action.response.user.token,
         currentUser: action.response.user
       };
@@ -52,7 +52,7 @@ export function appReducer (state = { token: null }, action) {
       agent.setToken(null);
       return {
         ...state,
-        redirectTo: '/',
+        redirectTo: '/login',
         token: null,
         currentUser: null
       };

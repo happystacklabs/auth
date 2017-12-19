@@ -1,14 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import SettingsForm from '../components/SettingsForm';
-
+import {mount} from 'enzyme';
 
 
 describe('SettingsForm', () => {
   describe('onChangeInput()', () => {
     it('will update the username value', () => {
       const form = mount(
-        <SettingsForm/>
+        <SettingsForm />
       );
       form.find('input').at(0).simulate('change', {target: {value: 'foo'}});
       expect(form.find('input').at(0).props().value).toBe('foo');
@@ -16,7 +15,7 @@ describe('SettingsForm', () => {
 
     it('will update the email value', () => {
       const form = mount(
-        <SettingsForm/>
+        <SettingsForm />
       );
       form.find('input').at(1).simulate('change', {target: {value: 'foo'}});
       expect(form.find('input').at(1).props().value).toBe('foo');
@@ -24,7 +23,7 @@ describe('SettingsForm', () => {
 
     it('will update the password value', () => {
       const form = mount(
-        <SettingsForm/>
+        <SettingsForm />
       );
       form.find('input').at(2).simulate('change', {target: {value: 'foo'}});
       expect(form.find('input').at(2).props().value).toBe('foo');
@@ -34,7 +33,7 @@ describe('SettingsForm', () => {
   describe('validate', () => {
     it('show error message if username and email are empty', () => {
       const form = mount(
-        <SettingsForm/>
+        <SettingsForm />
       );
       form.find('button').at(0).simulate('submit');
       expect(form.containsMatchingElement('Please enter a username')).toBe(true);
@@ -43,7 +42,7 @@ describe('SettingsForm', () => {
 
     it('show error message if password is less than 5 characters', () => {
       const form = mount(
-        <SettingsForm/>
+        <SettingsForm />
       );
       form.find('button').at(0).simulate('submit');
       expect(form.containsMatchingElement('Password must be at least 5 characters')).toBe(false);
@@ -54,7 +53,7 @@ describe('SettingsForm', () => {
 
     it('show error message if username is less than 5 characters', () => {
       const form = mount(
-        <SettingsForm/>
+        <SettingsForm />
       );
       form.find('input').at(0).simulate('change', {target: {value: 'foo'}});
       form.find('button').at(0).simulate('submit');
@@ -63,7 +62,7 @@ describe('SettingsForm', () => {
 
     it('should clear the input error message when start typing again', () => {
       const form = mount(
-        <SettingsForm/>
+        <SettingsForm />
       );
       form.find('input').at(2).simulate('change', {target: {value: 'foo'}});
       form.find('button').at(0).simulate('submit');
@@ -83,7 +82,7 @@ describe('SettingsForm', () => {
 
     it('show error message if email is not valid', () => {
       const form = mount(
-        <SettingsForm/>
+        <SettingsForm />
       );
       form.find('input').at(1).simulate('change', {target: {value: 'foo'}});
       form.find('button').at(0).simulate('submit');
@@ -95,7 +94,7 @@ describe('SettingsForm', () => {
     it('does nothing if the form isnt valid', () => {
       const spy = jest.fn();
       const form = mount(
-        <SettingsForm onSubmit={spy}/>
+        <SettingsForm onSubmit={spy} />
       );
       form.find('button').at(0).simulate('submit');
       expect(spy.mock.calls.length).toBe(0);
@@ -104,7 +103,7 @@ describe('SettingsForm', () => {
     it('send the username, email and password to the props callback if valid', () => {
       const spy = jest.fn();
       const form = mount(
-        <SettingsForm onSubmit={spy}/>
+        <SettingsForm onSubmit={spy} />
       );
       form.find('input').at(0).simulate('change', {target: {value: 'foobar'}});
       form.find('input').at(1).simulate('change', {target: {value: 'foo@hotmail.com'}});
@@ -116,7 +115,7 @@ describe('SettingsForm', () => {
     it('dont send the username, email and password if input are not valid', () => {
       const spy = jest.fn();
       const form = mount(
-        <SettingsForm onSubmit={spy}/>
+        <SettingsForm onSubmit={spy} />
       );
       form.find('input').at(0).simulate('change', {target: {value: 'foo'}});
       form.find('input').at(1).simulate('change', {target: {value: 'foo'}});
@@ -154,7 +153,7 @@ describe('SettingsForm', () => {
   describe('isLoading', () => {
     it('set the submit button to loading when passed to props', () => {
       const form = mount(
-        <SettingsForm isLoading/>
+        <SettingsForm isLoading />
       );
       expect(form.find('button').at(0).find('Spinner').length).toBe(1);
     });
@@ -168,7 +167,7 @@ describe('SettingsForm', () => {
         password: 'bar',
       };
       const form = mount(
-        <SettingsForm currentUser={user}/>
+        <SettingsForm currentUser={user} />
       );
       expect(form.find('input').at(0).props().value).toBe('foo');
       expect(form.find('input').at(1).props().value).toBe('foo@bar.com');

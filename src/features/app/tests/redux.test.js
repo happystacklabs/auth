@@ -115,7 +115,7 @@ describe('redux', () => {
         expect(
           redux.appReducer([], { type: LOGIN_SUCCESS, response: response })
         ).toEqual(
-          { redirectTo: '/', token: response.user.token, currentUser: response.user }
+          { redirectTo: '/dashboard', token: response.user.token, currentUser: response.user }
         );
       });
 
@@ -155,7 +155,7 @@ describe('redux', () => {
         expect(
           redux.appReducer([], { type: REGISTER_SUCCESS, response: response })
         ).toEqual(
-          { redirectTo: '/', token: response.user.token, currentUser: response.user }
+          { redirectTo: '/dashboard', token: response.user.token, currentUser: response.user }
         );
       });
 
@@ -252,7 +252,7 @@ describe('redux', () => {
         expect(
           redux.appReducer([], { type: SETTINGS_SAVE_SUCCESS, response: response })
         ).toEqual(
-          { redirectTo: '/', token: response.user.token, currentUser: response.user }
+          { redirectTo: '/dashboard', token: response.user.token, currentUser: response.user }
         );
       });
 
