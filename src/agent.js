@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 
-export const API_ROOT = 'https://conduit.productionready.io/api';
+// export const API_ROOT = 'http://localhost:3001/api';
+export const API_ROOT = 'http://authapi.happystack.io/api';
 axios.defaults.baseURL = API_ROOT;
 
 export let token = null;
