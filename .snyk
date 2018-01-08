@@ -1,0 +1,53 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.10.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:debug:20170905':
+    - react-scripts > fsevents > node-pre-gyp > tar-pack > debug:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.780Z'
+    - react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > tar-pack > debug:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.780Z'
+    - react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > tar-pack > debug:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.780Z'
+    - '@happystack/kit > react-scripts > fsevents > node-pre-gyp > tar-pack > debug':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.780Z'
+    - '@happystack/kit > react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > tar-pack > debug':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.780Z'
+    - '@happystack/kit > react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > tar-pack > debug':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.780Z'
+  'npm:tough-cookie:20170905':
+    - react-scripts > fsevents > node-pre-gyp > request > tough-cookie:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.780Z'
+    - react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.780Z'
+    - react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.780Z'
+    - '@happystack/kit > react-scripts > fsevents > node-pre-gyp > request > tough-cookie':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.781Z'
+    - '@happystack/kit > react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > request > tough-cookie':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.781Z'
+    - '@happystack/kit > react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > tough-cookie':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.781Z'
+  'npm:content-type-parser:20170905':
+    - react-scripts > jest > jest-cli > jest-environment-jsdom > jsdom > content-type-parser:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.781Z'
+    - react-scripts > jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > content-type-parser:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.781Z'
+    - react-scripts > jest > jest-cli > jest-runtime > jest-config > jest-environment-jsdom > jsdom > content-type-parser:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-02-07T10:52:43.781Z'
+patch: {}
