@@ -1,29 +1,30 @@
-import * as redux from '../redux';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import moxios from 'moxios';
 import {
   LOGIN_SUCCESS,
   PASSWORD_RESET_REDIRECT,
   LOGOUT,
   REGISTER_SUCCESS,
 } from '../../auth/redux';
+import * as redux from '../redux';
 import { SETTINGS_SAVE_SUCCESS } from '../../settings/redux';
 import localStorageMock from '../../../__mocks__/localStorage';
 import agent from '../../../agent';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import moxios from 'moxios';
+
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-
 window.localStorage = localStorageMock;
 
+
 describe('redux', () => {
-  beforeEach(function () {
+  beforeEach(() => {
     moxios.install();
   });
 
-  afterEach(function () {
+  afterEach(() => {
     moxios.uninstall();
   });
 
@@ -90,33 +91,29 @@ describe('redux', () => {
     });
 
     it('should handle REDIRECT', () => {
-      expect(
+      expect((
         redux.appReducer([], { type: redux.REDIRECT })
-      ).toEqual(
-        { redirectTo: null }
-      );
+      )).toEqual({ redirectTo: null });
     });
 
     it('should handle PASSWORD_RESET_REDIRECT', () => {
-      expect(
+      expect((
         redux.appReducer([], { type: PASSWORD_RESET_REDIRECT })
-      ).toEqual(
-        { redirectTo: '/password/new' }
-      );
+      )).toEqual({ redirectTo: '/password/new' });
     });
 
     describe('LOGIN_SUCCESS', () => {
       it('should handle LOGIN_SUCCESS', () => {
         const response = {
           user: {
-            token: 'foo'
-          }
+            token: 'foo',
+          },
         };
-        expect(
-          redux.appReducer([], { type: LOGIN_SUCCESS, response: response })
-        ).toEqual(
+        expect((
+          redux.appReducer([], { type: LOGIN_SUCCESS, response })
+        )).toEqual((
           { redirectTo: '/dashboard', token: response.user.token, currentUser: response.user }
-        );
+        ));
       });
 
       it('should set token to agent', () => {
@@ -124,10 +121,10 @@ describe('redux', () => {
         const response = {
           user: {
             token: 'foo',
-          }
+          },
         };
         expect(agent.setToken.mock.calls.length).toBe(0);
-        redux.appReducer({}, { type: LOGIN_SUCCESS, response: response });
+        redux.appReducer({}, { type: LOGIN_SUCCESS, response });
         expect(agent.setToken.mock.calls.length).toBe(1);
         expect(agent.setToken.mock.calls[0][0]).toBe('foo');
       });
@@ -137,10 +134,10 @@ describe('redux', () => {
         const response = {
           user: {
             token: 'foo',
-          }
+          },
         };
         expect(window.localStorage.getItem('jwt')).toBe('');
-        redux.appReducer({}, { type: LOGIN_SUCCESS, response: response });
+        redux.appReducer({}, { type: LOGIN_SUCCESS, response });
         expect(window.localStorage.getItem('jwt')).toBe('foo');
       });
     });
@@ -149,14 +146,14 @@ describe('redux', () => {
       it('should handle REGISTER_SUCCESS', () => {
         const response = {
           user: {
-            token: 'foo'
-          }
+            token: 'foo',
+          },
         };
-        expect(
-          redux.appReducer([], { type: REGISTER_SUCCESS, response: response })
-        ).toEqual(
+        expect((
+          redux.appReducer([], { type: REGISTER_SUCCESS, response })
+        )).toEqual((
           { redirectTo: '/dashboard', token: response.user.token, currentUser: response.user }
-        );
+        ));
       });
 
       it('should set token to agent', () => {
@@ -164,10 +161,10 @@ describe('redux', () => {
         const response = {
           user: {
             token: 'foo',
-          }
+          },
         };
         expect(agent.setToken.mock.calls.length).toBe(0);
-        redux.appReducer({}, { type: REGISTER_SUCCESS, response: response });
+        redux.appReducer({}, { type: REGISTER_SUCCESS, response });
         expect(agent.setToken.mock.calls.length).toBe(1);
         expect(agent.setToken.mock.calls[0][0]).toBe('foo');
       });
@@ -177,10 +174,10 @@ describe('redux', () => {
         const response = {
           user: {
             token: 'foo',
-          }
+          },
         };
         expect(window.localStorage.getItem('jwt')).toBe('');
-        redux.appReducer({}, { type: REGISTER_SUCCESS, response: response });
+        redux.appReducer({}, { type: REGISTER_SUCCESS, response });
         expect(window.localStorage.getItem('jwt')).toBe('foo');
       });
     });
@@ -204,41 +201,33 @@ describe('redux', () => {
 
     describe('APP_LOAD', () => {
       it('should handle APP_LOAD_START', () => {
-        expect(
+        expect((
           redux.appReducer([], { type: redux.APP_LOAD_START })
-        ).toEqual(
-          { appLoaded: false }
-        );
+        )).toEqual({ appLoaded: false });
       });
 
       it('should handle APP_LOAD_SUCCESS with empty user and token', () => {
         const response = null;
         const token = null;
-        expect(
+        expect((
           redux.appReducer([], { type: redux.APP_LOAD_SUCCESS, response, token })
-        ).toEqual(
-          { appLoaded: true, currentUser: response, token: token }
-        );
+        )).toEqual({ appLoaded: true, currentUser: response, token });
       });
 
       it('should handle APP_LOAD_SUCCESS with user and token', () => {
         const response = { user: 'foo' };
         const token = 'bar';
-        expect(
+        expect((
           redux.appReducer([], { type: redux.APP_LOAD_SUCCESS, response, token })
-        ).toEqual(
-          { appLoaded: true, currentUser: response, token: token }
-        );
+        )).toEqual({ appLoaded: true, currentUser: response, token });
       });
 
       it('should handle APP_LOAD_FAIL', () => {
         const response = null;
         const token = null;
-        expect(
+        expect((
           redux.appReducer([], { type: redux.APP_LOAD_FAIL })
-        ).toEqual(
-          { appLoaded: true, currentUser: response, token: token }
-        );
+        )).toEqual({ appLoaded: true, currentUser: response, token });
       });
     });
 
@@ -246,14 +235,14 @@ describe('redux', () => {
       it('should handle SETTINGS_SAVE_SUCCESS', () => {
         const response = {
           user: {
-            token: 'foo'
-          }
+            token: 'foo',
+          },
         };
-        expect(
-          redux.appReducer([], { type: SETTINGS_SAVE_SUCCESS, response: response })
-        ).toEqual(
+        expect((
+          redux.appReducer([], { type: SETTINGS_SAVE_SUCCESS, response })
+        )).toEqual((
           { redirectTo: '/dashboard', token: response.user.token, currentUser: response.user }
-        );
+        ));
       });
 
       it('should set token to agent', () => {
@@ -261,10 +250,10 @@ describe('redux', () => {
         const response = {
           user: {
             token: 'foo',
-          }
+          },
         };
         expect(agent.setToken.mock.calls.length).toBe(0);
-        redux.appReducer({}, { type: SETTINGS_SAVE_SUCCESS, response: response });
+        redux.appReducer({}, { type: SETTINGS_SAVE_SUCCESS, response });
         expect(agent.setToken.mock.calls.length).toBe(1);
         expect(agent.setToken.mock.calls[0][0]).toBe('foo');
       });
@@ -274,10 +263,10 @@ describe('redux', () => {
         const response = {
           user: {
             token: 'foo',
-          }
+          },
         };
         expect(window.localStorage.getItem('jwt')).toBe('');
-        redux.appReducer({}, { type: SETTINGS_SAVE_SUCCESS, response: response });
+        redux.appReducer({}, { type: SETTINGS_SAVE_SUCCESS, response });
         expect(window.localStorage.getItem('jwt')).toBe('foo');
       });
     });

@@ -1,19 +1,67 @@
 import React from 'react';
-import {TextInput, Button} from '@happystack/kit';
+import PropTypes from 'prop-types';
+import { TextInput, Button } from '@happystack/kit';
 import validator from 'validator';
 import '../styles/Settings.css';
-import PropTypes from 'prop-types';
+
+
+function validate(values) {
+  const errors = { isValid: true };
+  // username validation
+  if (!values.username) {
+    errors.username = 'Please enter a username';
+    errors.isValid = false;
+  } else if (values.username.length < 5) {
+    errors.username = 'Username must be at least 5 characters';
+    errors.isValid = false;
+  }
+  // Email validation
+  if (!values.email) {
+    errors.email = 'Please enter an email address';
+    errors.isValid = false;
+  } else if (!validator.isEmail(values.email)) {
+    errors.email = 'Please enter a valid email address';
+    errors.isValid = false;
+  }
+  // Password validation
+  if (values.password.length < 5 && values.password.length > 0) {
+    errors.password = 'Password must be at least 5 characters';
+    errors.isValid = false;
+  }
+  return errors;
+}
+
+
+function clearErrorField(_this, name) {
+  const errors = { ..._this.state.errors, [name]: '' };
+  _this.setState({ errors });
+}
+
+
+function isFormValid(_this) {
+  const errors = validate(_this.state);
+  _this.setState({ errors });
+  return errors.isValid;
+}
 
 
 const propTypes = {
   onSubmit: PropTypes.func,
   isLoading: PropTypes.bool,
-  currentUser: PropTypes.object,
+  currentUser: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    token: PropTypes.string,
+  }),
 };
 
+
 const defaultProps = {
+  onSubmit: undefined,
   isLoading: false,
+  currentUser: null,
 };
+
 
 export class SettingsForm extends React.Component {
   constructor() {
@@ -93,44 +141,9 @@ export class SettingsForm extends React.Component {
   }
 }
 
-function validate(values) {
-  const errors = {isValid: true};
-  // username validation
-  if (!values.username) {
-    errors.username = 'Please enter a username';
-    errors.isValid = false;
-  } else if (values.username.length < 5) {
-    errors.username = 'Username must be at least 5 characters';
-    errors.isValid = false;
-  }
-  // Email validation
-  if (!values.email) {
-    errors.email = 'Please enter an email address';
-    errors.isValid = false;
-  } else if (!validator.isEmail(values.email)) {
-    errors.email = 'Please enter a valid email address';
-    errors.isValid = false;
-  }
-  // Password validation
-  if (values.password.length < 5 && values.password.length > 0) {
-    errors.password = 'Password must be at least 5 characters';
-    errors.isValid = false;
-  }
-  return errors;
-};
-
-function clearErrorField(_this, name) {
-  const errors = {..._this.state.errors, [name]: ''};
-  _this.setState({errors});
-};
-
-function isFormValid(_this) {
-  const errors = validate(_this.state);
-  _this.setState({ errors });
-  return errors.isValid;
-};
 
 SettingsForm.propTypes = propTypes;
 SettingsForm.defaultProps = defaultProps;
+
 
 export default SettingsForm;

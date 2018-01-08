@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Spinner } from '@happystack/kit';
 import '../styles/App.css';
 import Navbar from '../components/Navbar';
 import Login from '../../auth/containers/Login';
@@ -7,13 +11,8 @@ import Register from '../../auth/containers/Register';
 import PasswordReset from '../../auth/containers/PasswordReset';
 import Dashboard from '../../../components/Dashboard/Dashboard';
 import Settings from '../../settings/containers/Settings';
-import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { redirect } from '../redux';
+import { redirect, appLoad } from '../redux';
 import agent from '../../../agent';
-import PropTypes from 'prop-types';
-import { appLoad } from '../redux';
-import { Spinner } from '@happystack/kit';
 import { logout } from '../../auth/redux';
 
 
@@ -22,6 +21,7 @@ const mapStateToProps = state => ({
   currentUser: state.app.currentUser,
   appLoaded: state.app.appLoaded,
 });
+
 
 const mapDispatchToProps = dispatch => ({
   onRedirect: () => {
@@ -35,20 +35,45 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
+
 const propTypes = {
+  redirectTo: PropTypes.string,
+  currentUser: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    token: PropTypes.string,
+  }),
+  appLoaded: PropTypes.bool,
+  logout: PropTypes.func,
   onLoad: PropTypes.func,
+  onRedirect: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
 };
 
+
+const defaultProps = {
+  redirectTo: null,
+  currentUser: undefined,
+  appLoaded: false,
+  logout: undefined,
+  onLoad: undefined,
+  onRedirect: undefined,
+  history: undefined,
+};
+
+
 export class App extends Component {
+  componentWillMount() {
+    this.onLoad();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
       this.props.history.push(nextProps.redirectTo);
       this.props.onRedirect();
     }
-  }
-
-  componentWillMount() {
-    this.onLoad();
   }
 
   onLoad = () => {
@@ -69,26 +94,28 @@ export class App extends Component {
           </section>
         </div>
       );
-    } else {
-      return (
-        <div>
-          <Navbar currentUser={this.props.currentUser} logout={this.props.logout} />
-          <section className="mainContainer">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path="/password/new" component={PasswordReset} />
-              <Route path="/dashboard" component={Dashboard} />
-              <Route path="/settings" component={Settings} />
-            </Switch>
-          </section>
-        </div>
-      );
     }
+    return (
+      <div>
+        <Navbar currentUser={this.props.currentUser} logout={this.props.logout} />
+        <section className="mainContainer">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/password/new" component={PasswordReset} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/settings" component={Settings} />
+          </Switch>
+        </section>
+      </div>
+    );
   }
 }
 
+
 App.propTypes = propTypes;
+App.defaultProps = defaultProps;
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

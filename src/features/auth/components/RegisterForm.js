@@ -1,9 +1,51 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TextInput, Button, Text } from '@happystack/kit';
 import validator from 'validator';
 import '../styles/Register.css';
-import PropTypes from 'prop-types';
 
+
+function validate(values) {
+  const errors = { isValid: true };
+  // username validation
+  if (!values.username) {
+    errors.username = 'Please enter a username';
+    errors.isValid = false;
+  } else if (values.username.length < 5) {
+    errors.username = 'Username must be at least 5 characters';
+    errors.isValid = false;
+  }
+  // Email validation
+  if (!values.email) {
+    errors.email = 'Please enter an email address';
+    errors.isValid = false;
+  } else if (!validator.isEmail(values.email)) {
+    errors.email = 'Please enter a valid email address';
+    errors.isValid = false;
+  }
+  // Password validation
+  if (!values.password) {
+    errors.password = 'Please enter a password';
+    errors.isValid = false;
+  } else if (values.password.length < 5) {
+    errors.password = 'Password must be at least 5 characters';
+    errors.isValid = false;
+  }
+  return errors;
+}
+
+
+function clearErrorField(_this, name) {
+  const errors = { ..._this.state.errors, [name]: '' };
+  _this.setState({ errors });
+}
+
+
+function isFormValid(_this) {
+  const errors = validate(_this.state);
+  _this.setState({ errors });
+  return errors.isValid;
+}
 
 
 const propTypes = {
@@ -11,9 +53,12 @@ const propTypes = {
   isLoading: PropTypes.bool,
 };
 
+
 const defaultProps = {
+  onSubmit: undefined,
   isLoading: false,
 };
+
 
 export class RegisterForm extends React.Component {
   constructor() {
@@ -87,49 +132,11 @@ export class RegisterForm extends React.Component {
       </form>
     );
   }
-};
+}
 
-function validate(values) {
-  const errors = {isValid: true};
-  // username validation
-  if (!values.username) {
-    errors.username = 'Please enter a username';
-    errors.isValid = false;
-  } else if (values.username.length < 5) {
-    errors.username = 'Username must be at least 5 characters';
-    errors.isValid = false;
-  }
-  // Email validation
-  if (!values.email) {
-    errors.email = 'Please enter an email address';
-    errors.isValid = false;
-  } else if (!validator.isEmail(values.email)) {
-    errors.email = 'Please enter a valid email address';
-    errors.isValid = false;
-  }
-  // Password validation
-  if (!values.password) {
-    errors.password = 'Please enter a password';
-    errors.isValid = false;
-  } else if (values.password.length < 5) {
-    errors.password = 'Password must be at least 5 characters';
-    errors.isValid = false;
-  }
-  return errors;
-};
-
-function clearErrorField(_this, name) {
-  const errors = {..._this.state.errors, [name]: ''};
-  _this.setState({errors});
-};
-
-function isFormValid(_this) {
-  const errors = validate(_this.state);
-  _this.setState({ errors });
-  return errors.isValid;
-};
 
 RegisterForm.propTypes = propTypes;
 RegisterForm.defaultProps = defaultProps;
+
 
 export default RegisterForm;

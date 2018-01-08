@@ -1,17 +1,18 @@
-import * as redux from '../redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
+import * as redux from '../redux';
+
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('redux', () => {
-  beforeEach(function () {
+  beforeEach(() => {
     moxios.install();
   });
 
-  afterEach(function () {
+  afterEach(() => {
     moxios.uninstall();
   });
 
@@ -33,7 +34,7 @@ describe('redux', () => {
       });
 
       it('creates LOGIN_FAIL after failing to post login', () => {
-        const errors = {errors: 'fail'};
+        const errors = { errors: 'fail' };
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -52,7 +53,7 @@ describe('redux', () => {
       });
 
       it('creates LOGIN_SUCCESS after success post login', () => {
-        const payload = {data: 'success'};
+        const payload = { data: 'success' };
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -94,7 +95,7 @@ describe('redux', () => {
       });
 
       it('creates REGISTER_SUCCESS after post register', () => {
-        const payload = {data: 'success'};
+        const payload = { data: 'success' };
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -113,7 +114,7 @@ describe('redux', () => {
       });
 
       it('creates REGISTER_FAIL after failing to post register', () => {
-        const errors = {errors: 'fail'};
+        const errors = { errors: 'fail' };
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -130,7 +131,6 @@ describe('redux', () => {
           expect(store.getActions()).toEqual(expectedActions);
         });
       });
-
     });
   });
 
@@ -143,53 +143,41 @@ describe('redux', () => {
 
     describe('LOGIN', () => {
       it('should handle LOGIN_START', () => {
-        expect(
+        expect((
           redux.authReducer([], { type: redux.LOGIN_START })
-        ).toEqual(
-          { inProgress: true }
-        );
+        )).toEqual({ inProgress: true });
       });
 
       it('should handle LOGIN_FAIL', () => {
-        expect(
+        expect((
           redux.authReducer({ inProgress: true }, { type: redux.LOGIN_FAIL, error: 'foo' })
-        ).toEqual(
-          { inProgress: false, errors: 'foo' }
-        );
+        )).toEqual({ inProgress: false, errors: 'foo' });
       });
 
       it('should handle LOGIN_SUCCESS', () => {
-        expect(
+        expect((
           redux.authReducer({ inProgress: true }, { type: redux.LOGIN_SUCCESS })
-        ).toEqual(
-           { inProgress: false }
-        );
+        )).toEqual({ inProgress: false });
       });
     });
 
     describe('REGISTER', () => {
       it('should handle REGISTER_START', () => {
-        expect(
+        expect((
           redux.authReducer([], { type: redux.REGISTER_START })
-        ).toEqual(
-          { inProgress: true }
-        );
+        )).toEqual({ inProgress: true });
       });
 
       it('should handle REGISTER_FAIL', () => {
-        expect(
+        expect((
           redux.authReducer({ inProgress: true }, { type: redux.REGISTER_FAIL, error: 'foo' })
-        ).toEqual(
-          { inProgress: false, errors: 'foo' }
-        );
+        )).toEqual({ inProgress: false, errors: 'foo' });
       });
 
       it('should handle REGISTER_SUCCESS', () => {
-        expect(
+        expect((
           redux.authReducer({ inProgress: true }, { type: redux.REGISTER_SUCCESS })
-        ).toEqual(
-           { inProgress: false }
-        );
+        )).toEqual({ inProgress: false });
       });
     });
   });

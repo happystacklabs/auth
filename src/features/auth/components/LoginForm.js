@@ -1,8 +1,43 @@
 import React from 'react';
-import {TextInput, Button} from '@happystack/kit';
+import { TextInput, Button } from '@happystack/kit';
 import validator from 'validator';
-import '../styles/Login.css';
 import PropTypes from 'prop-types';
+import '../styles/Login.css';
+
+
+function validate(values) {
+  const errors = { isValid: true };
+  // Email validation
+  if (!values.email) {
+    errors.email = 'Please enter an email address';
+    errors.isValid = false;
+  } else if (!validator.isEmail(values.email)) {
+    errors.email = 'Please enter a valid email address';
+    errors.isValid = false;
+  }
+  // Password validation
+  if (!values.password) {
+    errors.password = 'Please enter a password';
+    errors.isValid = false;
+  } else if (values.password.length < 5) {
+    errors.password = 'Password must be at least 5 characters';
+    errors.isValid = false;
+  }
+  return errors;
+}
+
+
+function clearErrorField(_this, name) {
+  const errors = { ..._this.state.errors, [name]: '' };
+  _this.setState({ errors });
+}
+
+
+function isFormValid(_this) {
+  const errors = validate(_this.state);
+  _this.setState({ errors });
+  return errors.isValid;
+}
 
 
 const propTypes = {
@@ -12,6 +47,8 @@ const propTypes = {
 };
 
 const defaultProps = {
+  onRedirectPasswordReset: undefined,
+  onSubmit: undefined,
   isLoading: false,
 };
 
@@ -26,7 +63,7 @@ export class LoginForm extends React.Component {
   }
 
   onChangeInput = (event) => {
-    this.setState({[event.name]: event.value}, clearErrorField(this, event.name));
+    this.setState({ [event.name]: event.value }, clearErrorField(this, event.name));
   };
 
   onSubmitForm = (event) => {
@@ -42,7 +79,6 @@ export class LoginForm extends React.Component {
     }
   };
 
-
   render() {
     const passwordAction = {
       title: 'Forgot Password?',
@@ -52,6 +88,7 @@ export class LoginForm extends React.Component {
     };
 
     return (
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <form className="form" onSubmit={this.onSubmitForm} onKeyPress={this.onKeyPress}>
         <div className="input">
           <TextInput
@@ -87,37 +124,6 @@ export class LoginForm extends React.Component {
   }
 }
 
-function validate(values) {
-  const errors = {isValid: true};
-  // Email validation
-  if (!values.email) {
-    errors.email = 'Please enter an email address';
-    errors.isValid = false;
-  } else if (!validator.isEmail(values.email)) {
-    errors.email = 'Please enter a valid email address';
-    errors.isValid = false;
-  }
-  // Password validation
-  if (!values.password) {
-    errors.password = 'Please enter a password';
-    errors.isValid = false;
-  } else if (values.password.length < 5) {
-    errors.password = 'Password must be at least 5 characters';
-    errors.isValid = false;
-  }
-  return errors;
-};
-
-function isFormValid(_this) {
-  const errors = validate(_this.state);
-  _this.setState({ errors });
-  return errors.isValid;
-}
-
-function clearErrorField(_this, name) {
-  const errors = {..._this.state.errors, [name]: ''};
-  _this.setState({errors});
-};
 
 LoginForm.propTypes = propTypes;
 LoginForm.defaultProps = defaultProps;

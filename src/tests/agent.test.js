@@ -1,21 +1,14 @@
-import * as agent from '../agent';
 import moxios from 'moxios';
+import * as agent from '../agent';
 
 
 describe('agent', () => {
-  beforeEach(function () {
+  beforeEach(() => {
     moxios.install();
   });
 
-  afterEach(function () {
+  afterEach(() => {
     moxios.uninstall();
-  });
-
-  describe('responseBody', () => {
-    it('return the body', () => {
-      const body = 'foo';
-      expect(agent.responseBody(body)).toBe(body);
-    });
   });
 
   describe('requests', () => {
@@ -30,7 +23,7 @@ describe('agent', () => {
             response: { payload: 'foo' },
           }).then(() => {
             expect(request.config.method).toBe('get');
-            expect(request.config.url).toBe('https://conduit.productionready.io/api/');
+            expect(request.config.url).toBe('http://localhost:3001/api/');
             expect(spy.mock.calls[0][0].data).toEqual({ payload: 'foo' });
             done();
           });
@@ -50,7 +43,7 @@ describe('agent', () => {
           }).then(() => {
             expect(request.config.data).toBe('body');
             expect(request.config.method).toBe('post');
-            expect(request.config.url).toBe('https://conduit.productionready.io/api/');
+            expect(request.config.url).toBe('http://localhost:3001/api/');
             expect(spy.mock.calls[0][0].data).toEqual({ payload: 'foo' });
             done();
           });
@@ -70,7 +63,7 @@ describe('agent', () => {
           }).then(() => {
             expect(request.config.data).toBe('body');
             expect(request.config.method).toBe('put');
-            expect(request.config.url).toBe('https://conduit.productionready.io/api/');
+            expect(request.config.url).toBe('http://localhost:3001/api/');
             expect(spy.mock.calls[0][0].data).toEqual({ payload: 'foo' });
             done();
           });
@@ -83,32 +76,32 @@ describe('agent', () => {
     describe('login', () => {
       it('make a post request with the login information and return a post request', () => {
         agent.requests.post = jest.fn();
-        agent.requests.post.mockImplementation(() => { return { response: 'foo' }; });
+        agent.requests.post.mockImplementation(() => ({ response: 'foo' }));
         expect(agent.Auth.login('foo@bar.com', 'bar')).toEqual({ response: 'foo' });
       });
     });
 
     describe('current', () => {
       it('make a get request to /user', () => {
-          agent.requests.get = jest.fn();
-          agent.requests.get.mockImplementation(() => { return { user: 'foo' } });
-          expect(agent.Auth.current()).toEqual({ user: 'foo' });
+        agent.requests.get = jest.fn();
+        agent.requests.get.mockImplementation(() => ({ user: 'foo' }));
+        expect(agent.Auth.current()).toEqual({ user: 'foo' });
       });
     });
 
     describe('register', () => {
       it('make a post request to /users', () => {
         agent.requests.post = jest.fn();
-        agent.requests.post.mockImplementation(() => { return { response: 'foo' }; });
-        expect(agent.Auth.register('username', 'foo@bar.com', 'bar')).toEqual({ response: 'foo'});
+        agent.requests.post.mockImplementation(() => ({ response: 'foo' }));
+        expect(agent.Auth.register('username', 'foo@bar.com', 'bar')).toEqual({ response: 'foo' });
       });
     });
 
     describe('save', () => {
       it('make a post put request to /user', () => {
         agent.requests.put = jest.fn();
-        agent.requests.put.mockImplementation(() => { return { response: 'foo' }; });
-        expect(agent.Auth.save('username', 'foo@bar.com', 'bar')).toEqual({ response: 'foo'});
+        agent.requests.put.mockImplementation(() => ({ response: 'foo' }));
+        expect(agent.Auth.save('username', 'foo@bar.com', 'bar')).toEqual({ response: 'foo' });
       });
     });
   });

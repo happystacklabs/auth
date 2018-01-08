@@ -1,21 +1,20 @@
-import reducer from './reducer';
 import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-import { composeWithDevTools } from 'remote-redux-devtools';
-
-
+import reducer from './reducer';
 
 
 const getMiddleware = () => {
   if (process.env.NODE_ENV === 'production') {
     return applyMiddleware(thunk);
-  } else {
-    return applyMiddleware(logger, thunk);
   }
+  return applyMiddleware(logger, thunk);
 };
 
 export const store = createStore(
   reducer,
-  composeWithDevTools(getMiddleware())
+  getMiddleware(),
 );
+
+
+export default store;

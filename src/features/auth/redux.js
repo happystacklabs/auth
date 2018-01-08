@@ -12,8 +12,10 @@ export const REGISTER_START = 'REGISTER_START';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 
+
 // reducers
 const defaultState = {};
+
 
 export function authReducer(state = defaultState, action) {
   switch (action.type) {
@@ -33,25 +35,30 @@ export function authReducer(state = defaultState, action) {
   }
 }
 
+
 // actions
 export function passwordResetRedirect() {
   return { type: PASSWORD_RESET_REDIRECT };
 }
 
+
 export function loginStart() {
   return { type: LOGIN_START };
 }
 
+
 export function loginSuccess(response) {
-  return { type: LOGIN_SUCCESS, response: response };
+  return { type: LOGIN_SUCCESS, response };
 }
+
 
 export function loginFail(error) {
-  return { type: LOGIN_FAIL, error: error };
+  return { type: LOGIN_FAIL, error };
 }
 
+
 export function login(email, password) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(loginStart());
     return agent.Auth.login(email, password).then(
       (response) => {
@@ -59,28 +66,34 @@ export function login(email, password) {
       },
       (error) => {
         dispatch(loginFail(error.response.data.errors));
-    });
+      },
+    );
   };
 }
+
 
 export function logout() {
   return { type: LOGOUT };
 }
 
+
 export function registerStart() {
   return { type: REGISTER_START };
 }
 
+
 export function registerSuccess(response) {
-  return { type: REGISTER_SUCCESS, response: response };
+  return { type: REGISTER_SUCCESS, response };
 }
+
 
 export function registerFail(error) {
-  return { type: REGISTER_FAIL, error: error };
+  return { type: REGISTER_FAIL, error };
 }
 
+
 export function register(username, email, password) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(registerStart());
     return agent.Auth.register(username, email, password).then(
       (response) => {
@@ -88,8 +101,9 @@ export function register(username, email, password) {
       },
       (error) => {
         dispatch(registerFail(error.response.data.errors));
-    });
-  }
+      },
+    );
+  };
 }
 
 

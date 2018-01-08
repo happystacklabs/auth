@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './shared/styles/index.css';
-import App from './features/app/containers/App';
-import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import App from './features/app/containers/App';
 import { store } from './store';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import registerServiceWorker from './registerServiceWorker';
+import './shared/styles/index.css';
+
 
 ReactDOM.render(
   <Provider store={store}>
@@ -15,5 +16,8 @@ ReactDOM.render(
       </Switch>
     </Router>
   </Provider>
-  , document.getElementById('root'));
+  , document.getElementById('root'),
+);
+
+
 registerServiceWorker();

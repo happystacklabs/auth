@@ -1,7 +1,7 @@
-import * as redux from '../redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import moxios from 'moxios';
+import * as redux from '../redux';
 
 
 const middlewares = [thunk];
@@ -9,11 +9,11 @@ const mockStore = configureMockStore(middlewares);
 
 
 describe('redux', () => {
-  beforeEach(function () {
+  beforeEach(() => {
     moxios.install();
   });
 
-  afterEach(function () {
+  afterEach(() => {
     moxios.uninstall();
   });
 
@@ -35,7 +35,7 @@ describe('redux', () => {
       });
 
       it('creates SETTINGS_SAVE_FAIL after failing to post login', () => {
-        const errors = {errors: 'fail'};
+        const errors = { errors: 'fail' };
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -54,7 +54,7 @@ describe('redux', () => {
       });
 
       it('creates SETTINGS_SAVE_SUCCESS after success post login', () => {
-        const payload = {data: 'success'};
+        const payload = { data: 'success' };
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -83,27 +83,21 @@ describe('redux', () => {
 
     describe('SETTINGS', () => {
       it('should handle SETTINGS_SAVE_START', () => {
-        expect(
+        expect((
           redux.settingsReducer([], { type: redux.SETTINGS_SAVE_START })
-        ).toEqual(
-          { inProgress: true }
-        );
+        )).toEqual({ inProgress: true });
       });
 
       it('should handle SETTINGS_SAVE_FAIL', () => {
-        expect(
+        expect((
           redux.settingsReducer({ inProgress: true }, { type: redux.SETTINGS_SAVE_FAIL, error: 'foo' })
-        ).toEqual(
-          { inProgress: false, errors: 'foo' }
-        );
+        )).toEqual({ inProgress: false, errors: 'foo' });
       });
 
       it('should handle SETTINGS_SAVE_SUCCESS', () => {
-        expect(
+        expect((
           redux.settingsReducer({ inProgress: true }, { type: redux.SETTINGS_SAVE_SUCCESS })
-        ).toEqual(
-           { inProgress: false }
-        );
+        )).toEqual({ inProgress: false });
       });
     });
   });

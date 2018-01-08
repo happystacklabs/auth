@@ -1,58 +1,51 @@
 import axios from 'axios';
 
 
-// export const API_ROOT = 'http://localhost:3001/api';
-export const API_ROOT = 'http://authapi.happystack.io/api';
+require('dotenv').config();
+
+
+export const API_ROOT = process.env.NODE_ENV === 'production' ? 'http://authapi.happystack.io/api' : 'http://localhost:3001/api';
 axios.defaults.baseURL = API_ROOT;
 
+
+// eslint-disable-next-line import/no-mutable-exports
 export let token = null;
 
 
-export const responseBody = (response) => {
-  return response;
+export const responseBody = response => response;
+
+
+export const setAuthHeaders = () => {
+  if (token) {
+    axios.defaults.headers.common.Authorization = `Token ${token}`;
+  }
 };
+
 
 export const setToken = (_token) => {
   token = _token;
-  setAuthHeaders(token);
+  setAuthHeaders();
 };
 
-export const setAuthHeaders = (token) => {
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`;
-  }
-};
 
 export const requests = {
-  get: (url) => {
-    return axios.get(`${API_ROOT}${url}`).then(responseBody);
-  },
-  post: (url, body) => {
-    return axios.post(`${API_ROOT}${url}`, body).then(responseBody);
-  },
-  put: (url, body) => {
-    return axios.put(`${API_ROOT}${url}`, body).then(responseBody);
-  }
+  get: url => axios.get(`${API_ROOT}${url}`).then(responseBody),
+  post: (url, body) => axios.post(`${API_ROOT}${url}`, body).then(responseBody),
+  put: (url, body) => axios.put(`${API_ROOT}${url}`, body).then(responseBody),
 };
 
+
 export const Auth = {
-  current: () => {
-    return requests.get('/user');
-  },
-  login: (email, password) => {
-    return requests.post('/users/login', { user: { email, password } });
-  },
-  register: (username, email, password) => {
-    return requests.post('/users', { user: { username, email, password } });
-  },
+  current: () => requests.get('/user'),
+  login: (email, password) => requests.post('/users/login', { user: { email, password } }),
+  register: (username, email, password) => requests.post('/users', { user: { username, email, password } }),
   save: (username, email, password) => {
-    const user = { username: username, email:email, password:password };
+    const user = { username, email, password };
     if (!user.password) {
       delete user.password;
     }
-
-    return requests.put('/user', { user } );
-  }
+    return requests.put('/user', { user });
+  },
 };
 
 
