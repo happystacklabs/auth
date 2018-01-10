@@ -1,12 +1,12 @@
 {
     "parser": "babel-eslint",
-    "extends": ["react-app", "eslint:recommended", "plugin:react/recommended", "airbnb"],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "airbnb"],
     "env": {
         "browser": true,
         "jest": true
     },
     "plugins": [
-       "react",
+       "react"
    ],
     "rules": {
         "react/jsx-filename-extension": [1, {"extensions": [".js"]}],

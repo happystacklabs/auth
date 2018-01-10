@@ -157,7 +157,7 @@ describe('redux', () => {
       it('should handle LOGIN_SUCCESS', () => {
         expect((
           redux.authReducer({ inProgress: true }, { type: redux.LOGIN_SUCCESS })
-        )).toEqual({ inProgress: false });
+        )).toEqual({ inProgress: false, errors: {} });
       });
     });
 
@@ -177,7 +177,7 @@ describe('redux', () => {
       it('should handle REGISTER_SUCCESS', () => {
         expect((
           redux.authReducer({ inProgress: true }, { type: redux.REGISTER_SUCCESS })
-        )).toEqual({ inProgress: false });
+        )).toEqual({ inProgress: false, errors: {} });
       });
     });
   });

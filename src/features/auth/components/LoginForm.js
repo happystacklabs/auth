@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, Button } from '@happystack/kit';
+import { TextInput, Button, Text } from '@happystack/kit';
 import validator from 'validator';
 import PropTypes from 'prop-types';
 import '../styles/Login.css';
@@ -40,16 +40,29 @@ function isFormValid(_this) {
 }
 
 
+function renderServerErrors(errors) {
+  if (!errors) { return undefined; }
+  if ('email or password' in errors) {
+    return (
+      <Text element="p" color="negative">The email or password is invalid.</Text>
+    );
+  }
+  return undefined;
+}
+
+
 const propTypes = {
   onRedirectPasswordReset: PropTypes.func,
   onSubmit: PropTypes.func,
   isLoading: PropTypes.bool,
+  errors: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 const defaultProps = {
   onRedirectPasswordReset: undefined,
   onSubmit: undefined,
   isLoading: false,
+  errors: undefined,
 };
 
 export class LoginForm extends React.Component {
@@ -119,6 +132,7 @@ export class LoginForm extends React.Component {
         >
           Sign In
         </Button>
+        {renderServerErrors(this.props.errors)}
       </form>
     );
   }
@@ -127,5 +141,6 @@ export class LoginForm extends React.Component {
 
 LoginForm.propTypes = propTypes;
 LoginForm.defaultProps = defaultProps;
+
 
 export default LoginForm;

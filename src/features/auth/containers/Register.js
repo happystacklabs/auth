@@ -21,12 +21,14 @@ const mapDispatchToProps = dispatch => ({
 const propTypes = {
   onSubmit: PropTypes.func,
   inProgress: PropTypes.bool,
+  errors: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 
 const defaultProps = {
   onSubmit: undefined,
   inProgress: false,
+  errors: undefined,
 };
 
 
@@ -39,6 +41,7 @@ export function Register(props) {
           <RegisterForm
             onSubmit={props.onSubmit}
             isLoading={props.inProgress}
+            errors={props.errors}
           />
         </div>
         <div className="sub_panel">

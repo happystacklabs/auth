@@ -27,6 +27,7 @@ const propTypes = {
   onRedirectPasswordReset: PropTypes.func,
   onSubmit: PropTypes.func,
   inProgress: PropTypes.bool,
+  errors: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 
@@ -34,6 +35,7 @@ const defaultProps = {
   onRedirectPasswordReset: undefined,
   onSubmit: undefined,
   inProgress: false,
+  errors: undefined,
 };
 
 
@@ -47,6 +49,7 @@ export function Login(props) {
             onRedirectPasswordReset={props.onRedirectPasswordReset}
             onSubmit={props.onSubmit}
             isLoading={props.inProgress}
+            errors={props.errors}
           />
         </div>
         <div className="sub_panel">

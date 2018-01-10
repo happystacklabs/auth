@@ -6,57 +6,47 @@ import '../styles/Register.css';
 
 
 function validate(values) {
-  const errors = { isValid: true };
+  const errors = {};
   // username validation
   if (!values.username) {
     errors.username = 'Please enter a username';
-    errors.isValid = false;
   } else if (values.username.length < 5) {
     errors.username = 'Username must be at least 5 characters';
-    errors.isValid = false;
   }
   // Email validation
   if (!values.email) {
     errors.email = 'Please enter an email address';
-    errors.isValid = false;
   } else if (!validator.isEmail(values.email)) {
     errors.email = 'Please enter a valid email address';
-    errors.isValid = false;
   }
   // Password validation
   if (!values.password) {
     errors.password = 'Please enter a password';
-    errors.isValid = false;
   } else if (values.password.length < 5) {
     errors.password = 'Password must be at least 5 characters';
-    errors.isValid = false;
   }
   return errors;
 }
 
 
 function clearErrorField(_this, name) {
-  const errors = { ..._this.state.errors, [name]: '' };
+  const errors = { ..._this.state.errors };
+  delete errors[name];
   _this.setState({ errors });
-}
-
-
-function isFormValid(_this) {
-  const errors = validate(_this.state);
-  _this.setState({ errors });
-  return errors.isValid;
 }
 
 
 const propTypes = {
   onSubmit: PropTypes.func,
   isLoading: PropTypes.bool,
+  errors: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 
 const defaultProps = {
   onSubmit: undefined,
   isLoading: false,
+  errors: undefined,
 };
 
 
@@ -77,8 +67,11 @@ export class RegisterForm extends React.Component {
 
   onSubmitForm = (event) => {
     event.preventDefault();
-    if (isFormValid(this)) {
+    const errors = validate(this.state);
+    if (Object.keys(errors).length === 0 && errors.constructor === Object) {
       this.props.onSubmit(this.state.username, this.state.email, this.state.password);
+    } else {
+      this.setState({ ...this.state, errors });
     }
   };
 
@@ -92,7 +85,7 @@ export class RegisterForm extends React.Component {
             type="text"
             onChange={this.onChangeInput}
             value={this.state.username}
-            error={this.state.errors.username}
+            error={this.state.errors.username || ((this.props.errors || {}).username || '')}
           />
         </div>
         <div className="input">
@@ -102,7 +95,7 @@ export class RegisterForm extends React.Component {
             type="email"
             onChange={this.onChangeInput}
             value={this.state.email}
-            error={this.state.errors.email}
+            error={this.state.errors.email || ((this.props.errors || {}).email || '')}
           />
         </div>
         <div className="input">

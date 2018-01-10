@@ -110,4 +110,12 @@ describe('LoginForm', () => {
       expect(spy.mock.calls.length).toBe(0);
     });
   });
+
+  describe('errors', () => {
+    it('show the error message when passed by props', () => {
+      const errors = { 'email or password': 'Is invalid' };
+      const form = mount(<LoginForm errors={errors} />);
+      expect(form.containsMatchingElement('The email or password is invalid.')).toBe(true);
+    });
+  });
 });

@@ -132,4 +132,18 @@ describe('RegisterForm', () => {
       expect(form.find('button').at(0).find('Spinner').length).toBe(1);
     });
   });
+
+  describe('serverErrors', () => {
+    it('show username is already taken when passed by props', () => {
+      const errors = { username: 'Is already taken' };
+      const form = mount(<RegisterForm errors={errors} />);
+      expect(form.containsMatchingElement('Is already taken')).toBe(true);
+    });
+
+    it('show email is already taken when passed by props', () => {
+      const errors = { email: 'Is already taken' };
+      const form = mount(<RegisterForm errors={errors} />);
+      expect(form.containsMatchingElement('Is already taken')).toBe(true);
+    });
+  });
 });

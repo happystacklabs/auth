@@ -44,10 +44,19 @@ ignore:
     - react-scripts > jest > jest-cli > jest-environment-jsdom > jsdom > content-type-parser:
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.781Z'
+      '@happystack/kit > react-scripts > jest > jest-cli > jest-environment-jsdom > jsdom > content-type-parser':
+        reason: None given
+        expires: '2018-02-09T05:37:43.204Z'
     - react-scripts > jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > content-type-parser:
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.781Z'
+      '@happystack/kit > react-scripts > jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > content-type-parser':
+        reason: None given
+        expires: '2018-02-09T05:37:43.204Z'
     - react-scripts > jest > jest-cli > jest-runtime > jest-config > jest-environment-jsdom > jsdom > content-type-parser:
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.781Z'
+      '@happystack/kit > react-scripts > jest > jest-cli > jest-runtime > jest-config > jest-environment-jsdom > jsdom > content-type-parser':
+        reason: None given
+        expires: '2018-02-09T05:37:43.204Z'
 patch: {}
