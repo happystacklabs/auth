@@ -1,6 +1,10 @@
 import agent from '../../agent';
 
-// constants
+
+//------------------------------------------------------------------------------
+//  CONSTANTS
+//------------------------------------------------------------------------------
+
 export const PASSWORD_RESET_REDIRECT = 'PASSWORD_RESET_REDIRECT';
 
 export const LOGIN_START = 'LOGIN_START';
@@ -12,8 +16,14 @@ export const REGISTER_START = 'REGISTER_START';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
 
+export const LOGIN_PAGE_UNLOADED = 'LOGIN_PAGE_UNLOADED';
+export const REGISTER_PAGE_UNLOADED = 'REGISTER_PAGE_UNLOADED';
 
-// reducers
+
+//------------------------------------------------------------------------------
+//  REDUCER
+//------------------------------------------------------------------------------
+
 const defaultState = {};
 
 
@@ -30,13 +40,18 @@ export function authReducer(state = defaultState, action) {
       return { ...state, inProgress: false, errors: action.error };
     case LOGOUT:
       return { ...state };
+    case LOGIN_PAGE_UNLOADED:
+    case REGISTER_PAGE_UNLOADED:
+      return {};
     default:
       return state;
   }
 }
 
 
-// actions
+//------------------------------------------------------------------------------
+//  ACTIONS
+//------------------------------------------------------------------------------
 export function passwordResetRedirect() {
   return { type: PASSWORD_RESET_REDIRECT };
 }
@@ -46,16 +61,13 @@ export function loginStart() {
   return { type: LOGIN_START };
 }
 
-
 export function loginSuccess(response) {
   return { type: LOGIN_SUCCESS, response };
 }
 
-
 export function loginFail(error) {
   return { type: LOGIN_FAIL, error };
 }
-
 
 export function login(email, password) {
   return (dispatch) => {
@@ -81,16 +93,13 @@ export function registerStart() {
   return { type: REGISTER_START };
 }
 
-
 export function registerSuccess(response) {
   return { type: REGISTER_SUCCESS, response };
 }
 
-
 export function registerFail(error) {
   return { type: REGISTER_FAIL, error };
 }
-
 
 export function register(username, email, password) {
   return (dispatch) => {
@@ -104,6 +113,15 @@ export function register(username, email, password) {
       },
     );
   };
+}
+
+
+export function loginPageUnloaded() {
+  return { type: LOGIN_PAGE_UNLOADED };
+}
+
+export function registerPageUnloaded() {
+  return { type: REGISTER_PAGE_UNLOADED };
 }
 
 

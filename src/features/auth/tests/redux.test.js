@@ -16,6 +16,10 @@ describe('redux', () => {
     moxios.uninstall();
   });
 
+
+  //----------------------------------------------------------------------------
+  //  ACTION
+  //----------------------------------------------------------------------------
   describe('action', () => {
     describe('LOGIN', () => {
       it('should create an action LOGIN_START', () => {
@@ -132,8 +136,23 @@ describe('redux', () => {
         });
       });
     });
+
+    describe('LOGIN_PAGE_UNLOADED and REGISTER_PAGE_UNLOADED', () => {
+      it('creates LOGIN_PAGE_UNLOADED', () => {
+        const expectedAction = { type: redux.LOGIN_PAGE_UNLOADED };
+        expect(redux.loginPageUnloaded()).toEqual(expectedAction);
+      });
+
+      it('creates REGISTER_PAGE_UNLOADED', () => {
+        const expectedAction = { type: redux.REGISTER_PAGE_UNLOADED };
+        expect(redux.registerPageUnloaded()).toEqual(expectedAction);
+      });
+    });
   });
 
+  //----------------------------------------------------------------------------
+  //  REDUCERS
+  //----------------------------------------------------------------------------
   describe('reducer', () => {
     it('should return the initial state', () => {
       const reducer = redux.authReducer(undefined, {});
@@ -178,6 +197,20 @@ describe('redux', () => {
         expect((
           redux.authReducer({ inProgress: true }, { type: redux.REGISTER_SUCCESS })
         )).toEqual({ inProgress: false, errors: {} });
+      });
+    });
+
+    describe('LOGIN_PAGE_UNLOADED and REGISTER_PAGE_UNLOADED', () => {
+      it('should handle LOGIN_PAGE_UNLOADED', () => {
+        expect((
+          redux.authReducer({ errors: {} }, { type: redux.LOGIN_PAGE_UNLOADED })
+        )).toEqual({});
+      });
+
+      it('should handle REGISTER_PAGE_UNLOADED', () => {
+        expect((
+          redux.authReducer({ errors: {} }, { type: redux.REGISTER_PAGE_UNLOADED })
+        )).toEqual({});
       });
     });
   });
