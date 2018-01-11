@@ -111,7 +111,7 @@ describe('LoginForm', () => {
     });
   });
 
-  describe('errors', () => {
+  describe('serverErrors', () => {
     it('show the error message when passed by props', () => {
       const errors = { 'email or password': 'Is invalid' };
       const form = mount(<LoginForm errors={errors} />);

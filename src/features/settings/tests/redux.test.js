@@ -17,6 +17,9 @@ describe('redux', () => {
     moxios.uninstall();
   });
 
+  //----------------------------------------------------------------------------
+  //  ACTION
+  //----------------------------------------------------------------------------
   describe('action', () => {
     describe('SETTINGS', () => {
       it('should create an action SETTINGS_SAVE_START', () => {
@@ -30,7 +33,7 @@ describe('redux', () => {
       });
 
       it('should create an action SETTINGS_SAVE_FAIL', () => {
-        const expectedAction = { type: redux.SETTINGS_SAVE_FAIL, error: 'bar' };
+        const expectedAction = { type: redux.SETTINGS_SAVE_FAIL, errors: 'bar' };
         expect(redux.settingsSaveFail('bar')).toEqual(expectedAction);
       });
 
@@ -45,7 +48,7 @@ describe('redux', () => {
         });
         const expectedActions = [
           { type: redux.SETTINGS_SAVE_START },
-          { type: redux.SETTINGS_SAVE_FAIL, error: 'fail' },
+          { type: redux.SETTINGS_SAVE_FAIL, errors: 'fail' },
         ];
         const store = mockStore({});
         return store.dispatch(redux.save('foo', 'foo@bar.com', 'foobar')).then(() => {
@@ -72,8 +75,18 @@ describe('redux', () => {
         });
       });
     });
+
+    describe('SETTINGS_PAGE_UNLOADED', () => {
+      it('creates SETTINGS_PAGE_UNLOADED', () => {
+        const expectedAction = { type: redux.SETTINGS_PAGE_UNLOADED };
+        expect(redux.settingsPageUnloaded()).toEqual(expectedAction);
+      });
+    });
   });
 
+  //----------------------------------------------------------------------------
+  //  REDUCERS
+  //----------------------------------------------------------------------------
   describe('reducer', () => {
     it('should return the initial state', () => {
       const reducer = redux.settingsReducer(undefined, {});
@@ -90,7 +103,7 @@ describe('redux', () => {
 
       it('should handle SETTINGS_SAVE_FAIL', () => {
         expect((
-          redux.settingsReducer({ inProgress: true }, { type: redux.SETTINGS_SAVE_FAIL, error: 'foo' })
+          redux.settingsReducer({ inProgress: true }, { type: redux.SETTINGS_SAVE_FAIL, errors: 'foo' })
         )).toEqual({ inProgress: false, errors: 'foo' });
       });
 
@@ -98,6 +111,14 @@ describe('redux', () => {
         expect((
           redux.settingsReducer({ inProgress: true }, { type: redux.SETTINGS_SAVE_SUCCESS })
         )).toEqual({ inProgress: false });
+      });
+    });
+
+    describe('SETTINGS_PAGE_UNLOADED', () => {
+      it('should handle SETTINGS_PAGE_UNLOADED', () => {
+        expect((
+          redux.settingsReducer({ errors: {} }, { type: redux.SETTINGS_PAGE_UNLOADED })
+        )).toEqual({});
       });
     });
   });

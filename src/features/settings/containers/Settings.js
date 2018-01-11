@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import '../styles/Settings.css';
 import { SettingsForm } from '../components/SettingsForm';
-import { save } from '../redux';
+import { save, settingsPageUnloaded } from '../redux';
 
 
 const mapStateToProps = state => ({
-  ...state.auth,
+  ...state.settings,
   currentUser: state.app.currentUser,
 });
 
@@ -15,6 +15,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onSubmit: (username, email, password) => {
     dispatch(save(username, email, password));
+  },
+  onUnload: () => {
+    dispatch(settingsPageUnloaded());
   },
 });
 
@@ -27,6 +30,8 @@ const propTypes = {
     email: PropTypes.string,
     token: PropTypes.string,
   }),
+  errors: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  onUnload: PropTypes.func,
 };
 
 
@@ -34,24 +39,33 @@ const defaultProps = {
   onSubmit: undefined,
   inProgress: false,
   currentUser: null,
+  errors: undefined,
+  onUnload: undefined,
 };
 
 
-function Settings(props) {
-  return (
-    <div>
-      <h1>Settings</h1>
-      <div className="panel settings_panel">
-        <div className="panel_content">
-          <SettingsForm
-            onSubmit={props.onSubmit}
-            isLoading={props.inProgress}
-            currentUser={props.currentUser}
-          />
+export class Settings extends React.Component {
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Settings</h1>
+        <div className="panel settings_panel">
+          <div className="panel_content">
+            <SettingsForm
+              onSubmit={this.props.onSubmit}
+              isLoading={this.props.inProgress}
+              currentUser={this.props.currentUser}
+              errors={this.props.errors}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 

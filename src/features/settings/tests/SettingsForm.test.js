@@ -148,4 +148,18 @@ describe('SettingsForm', () => {
       expect(form.find('input').at(2).props().value).toBe('');
     });
   });
+
+  describe('serverErrors', () => {
+    it('show username is already taken when passed by props', () => {
+      const errors = { username: 'Is already taken' };
+      const form = mount(<SettingsForm errors={errors} />);
+      expect(form.containsMatchingElement('Is already taken')).toBe(true);
+    });
+
+    it('show email is already taken when passed by props', () => {
+      const errors = { email: 'Is already taken' };
+      const form = mount(<SettingsForm errors={errors} />);
+      expect(form.containsMatchingElement('Is already taken')).toBe(true);
+    });
+  });
 });

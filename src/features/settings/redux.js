@@ -1,12 +1,19 @@
 import agent from '../../agent';
 
-// constants
+
+//------------------------------------------------------------------------------
+//  CONSTANTS
+//------------------------------------------------------------------------------
 export const SETTINGS_SAVE_START = 'SETTINGS_SAVE_START';
 export const SETTINGS_SAVE_SUCCESS = 'SETTINGS_SAVE_SUCCESS';
 export const SETTINGS_SAVE_FAIL = 'SETTINGS_SAVE_FAIL';
 
+export const SETTINGS_PAGE_UNLOADED = 'SETTINGS_PAGE_UNLOADED';
 
-// reducers
+
+//------------------------------------------------------------------------------
+//  REDUCER
+//------------------------------------------------------------------------------
 const defaultState = {};
 
 
@@ -17,28 +24,29 @@ export function settingsReducer(state = defaultState, action) {
     case SETTINGS_SAVE_SUCCESS:
       return { ...state, inProgress: false };
     case SETTINGS_SAVE_FAIL:
-      return { ...state, inProgress: false, errors: action.error };
+      return { ...state, inProgress: false, errors: action.errors };
+    case SETTINGS_PAGE_UNLOADED:
+      return {};
     default:
       return state;
   }
 }
 
 
-// actions
+//------------------------------------------------------------------------------
+//  ACTIONS
+//------------------------------------------------------------------------------
 export function settingsSaveStart() {
   return { type: SETTINGS_SAVE_START };
 }
-
 
 export function settingsSaveSuccess(response) {
   return { type: SETTINGS_SAVE_SUCCESS, response };
 }
 
-
-export function settingsSaveFail(error) {
-  return { type: SETTINGS_SAVE_FAIL, error };
+export function settingsSaveFail(errors) {
+  return { type: SETTINGS_SAVE_FAIL, errors };
 }
-
 
 export function save(username, email, password) {
   return (dispatch) => {
@@ -52,6 +60,11 @@ export function save(username, email, password) {
       },
     );
   };
+}
+
+
+export function settingsPageUnloaded() {
+  return { type: SETTINGS_PAGE_UNLOADED };
 }
 
 
