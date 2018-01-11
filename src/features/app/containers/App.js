@@ -15,6 +15,7 @@ import { redirect, appLoad } from '../redux';
 import agent from '../../../agent';
 import { logout } from '../../auth/redux';
 import PrivateRoute from '../../../components/PrivateRoute/PrivateRoute';
+import PublicRoute from '../../../components/PublicRoute/PublicRoute';
 
 
 const mapStateToProps = state => ({
@@ -102,8 +103,8 @@ export class App extends Component {
         <section className="mainContainer">
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
+            <PublicRoute path="/login" currentUser={this.props.currentUser} component={Login} />
+            <PublicRoute path="/register" currentUser={this.props.currentUser} component={Register} />
             <Route path="/password/new" component={PasswordReset} />
             <PrivateRoute path="/dashboard" currentUser={this.props.currentUser} component={Dashboard} />
             <PrivateRoute path="/settings" currentUser={this.props.currentUser} component={Settings} />
