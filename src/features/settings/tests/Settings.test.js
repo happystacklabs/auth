@@ -12,15 +12,28 @@ window.localStorage = localStorageMock;
 
 describe('Settings', () => {
   describe('Route', () => {
-    it('render Settings on /settings', () => {
+    it('render Dashboard on /dashboard', () => {
+      const currentUser = { username: 'foo' };
       const app = mount((
         <Provider store={store}>
           <Router initialEntries={['/settings']}>
-            <App onLoad={() => {}} appLoaded />
+            <App onLoad={() => {}} currentUser={currentUser} appLoaded />
           </Router>
         </Provider>
       ));
       expect(app.containsMatchingElement(<Settings />)).toBe(true);
+    });
+
+    it('redirect to /login when not loggued in', () => {
+      const currentUser = undefined;
+      const app = mount((
+        <Provider store={store}>
+          <Router initialEntries={['/settings']}>
+            <App onLoad={() => {}} currentUser={currentUser} appLoaded />
+          </Router>
+        </Provider>
+      ));
+      expect(app.containsMatchingElement(<h1>Login</h1>)).toBe(true);
     });
   });
 

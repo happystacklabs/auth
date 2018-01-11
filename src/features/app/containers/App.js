@@ -106,7 +106,7 @@ export class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/password/new" component={PasswordReset} />
             <PrivateRoute path="/dashboard" currentUser={this.props.currentUser} component={Dashboard} />
-            <Route path="/settings" component={Settings} />
+            <PrivateRoute path="/settings" currentUser={this.props.currentUser} component={Settings} />
           </Switch>
         </section>
       </div>

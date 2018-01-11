@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { App } from '../../features/app/containers/App';
 import localStorageMock from '../../__mocks__/localStorage';
@@ -16,9 +16,9 @@ describe('Dashboard', () => {
       const currentUser = { username: 'foo' };
       const app = mount((
         <Provider store={store}>
-          <MemoryRouter initialEntries={['/dashboard']}>
+          <Router initialEntries={['/dashboard']}>
             <App onLoad={() => {}} currentUser={currentUser} appLoaded />
-          </MemoryRouter>
+          </Router>
         </Provider>
       ));
       expect(app.containsMatchingElement(<Dashboard />)).toBe(true);
@@ -28,9 +28,9 @@ describe('Dashboard', () => {
       const currentUser = undefined;
       const app = mount((
         <Provider store={store}>
-          <MemoryRouter initialEntries={['/dashboard']}>
+          <Router initialEntries={['/dashboard']}>
             <App onLoad={() => {}} currentUser={currentUser} appLoaded />
-          </MemoryRouter>
+          </Router>
         </Provider>
       ));
       expect(app.containsMatchingElement(<h1>Login</h1>)).toBe(true);
