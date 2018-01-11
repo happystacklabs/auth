@@ -14,6 +14,7 @@ import Settings from '../../settings/containers/Settings';
 import { redirect, appLoad } from '../redux';
 import agent from '../../../agent';
 import { logout } from '../../auth/redux';
+import PrivateRoute from '../../../components/PrivateRoute/PrivateRoute';
 
 
 const mapStateToProps = state => ({
@@ -104,7 +105,7 @@ export class App extends Component {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/password/new" component={PasswordReset} />
-            <Route path="/dashboard" component={Dashboard} />
+            <PrivateRoute path="/dashboard" currentUser={this.props.currentUser} component={Dashboard} />
             <Route path="/settings" component={Settings} />
           </Switch>
         </section>
