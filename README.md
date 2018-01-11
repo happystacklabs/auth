@@ -2,21 +2,28 @@
 
 # Happystack Auth
 
-![Version](https://img.shields.io/badge/Version-0.1.0-green.svg?style=flat)
+![Version](https://img.shields.io/badge/Version-0.2.0-green.svg?style=flat)
 ![license](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 ## UNDER ACTIVE DEVELOPMENT!!!
 
 #### Auth is a React auth boilerplate created by Happystack to help streamline your development. Visit the [playground](http://auth.happystack.io) to learn more.
 
-### Installation:
+
+## 🔧 Installation
 TODO
 
-### Usage
+
+## 🕹 Usage
 TODO
 
-## Licenses
+### Getting Started
+TODO
+
+
+## 📄 Licenses
 * Source code is licensed under [MIT](https://opensource.org/licenses/MIT)
 
-## Feedback
+
+## 💡 Feedback
 [Create an issue or feature request](https://github.com/happystacklabs/auth/issues/new).
