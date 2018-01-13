@@ -4,7 +4,6 @@ import agent from '../../agent';
 //------------------------------------------------------------------------------
 //  CONSTANTS
 //------------------------------------------------------------------------------
-
 export const PASSWORD_RESET_REDIRECT = 'PASSWORD_RESET_REDIRECT';
 
 export const LOGIN_START = 'LOGIN_START';
@@ -23,7 +22,6 @@ export const REGISTER_PAGE_UNLOADED = 'REGISTER_PAGE_UNLOADED';
 //------------------------------------------------------------------------------
 //  REDUCER
 //------------------------------------------------------------------------------
-
 const defaultState = {};
 
 
