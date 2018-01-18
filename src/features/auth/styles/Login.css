@@ -1,19 +1,6 @@
-.panel {
-  background: #fff;
-  border: 1px solid #dfe2e3;
-  box-shadow: 0 1px 1px 0 #d9dadc;
-  border-radius: 3px;
-  max-width: 380px;
-  margin: auto; }
-  .panel .panel_content {
-    padding: 20px 30px; }
-  .panel .sub_panel {
-    border-top: 1px solid #dfe2e3;
-    padding: 20px 30px; }
-
-.form .input,
-.form button {
+/*----------------------------------------------------------------------------*
+ * form
+ *----------------------------------------------------------------------------*/
+.form__button,
+.form__input {
   margin-top: 20px; }
-
-.form .action button {
-  margin-top: 0; }

@@ -55,7 +55,7 @@ export class Login extends React.Component {
       <div>
         <h1>Login</h1>
         <div className="panel">
-          <div className="panel_content">
+          <div className="panel__content">
             <LoginForm
               onRedirectPasswordReset={this.props.onRedirectPasswordReset}
               onSubmit={this.props.onSubmit}
@@ -63,8 +63,8 @@ export class Login extends React.Component {
               errors={this.props.errors}
             />
           </div>
-          <div className="sub_panel">
-            <Text size="regular">New? <Link to="/register">Create an account</Link>.</Text>
+          <div className="panel__footer">
+            <Text size="body">New? <Link to="/register">Create an account</Link>.</Text>
           </div>
         </div>
       </div>

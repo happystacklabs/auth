@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm';
 import { register, registerPageUnloaded } from '../redux';
 import '../styles/Register.css';
+import '../styles/Panel.css';
 
 
 const mapStateToProps = state => ({ ...state.auth });
@@ -47,15 +48,15 @@ export class Register extends React.Component {
       <div>
         <h1>Register</h1>
         <div className="panel register_panel">
-          <div className="panel_content">
+          <div className="panel__content">
             <RegisterForm
               onSubmit={this.props.onSubmit}
               isLoading={this.props.inProgress}
               errors={this.props.errors}
             />
           </div>
-          <div className="sub_panel">
-            <Text size="regular">Have an account? <Link to="/login">Sign In</Link>.</Text>
+          <div className="panel__footer">
+            <Text size="body">Have an account? <Link to="/login">Sign In</Link>.</Text>
           </div>
         </div>
       </div>

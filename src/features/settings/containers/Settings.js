@@ -53,8 +53,8 @@ export class Settings extends React.Component {
     return (
       <div>
         <h1>Settings</h1>
-        <div className="panel settings_panel">
-          <div className="panel_content">
+        <div className="panel settings">
+          <div className="panel__content">
             <SettingsForm
               onSubmit={this.props.onSubmit}
               isLoading={this.props.inProgress}

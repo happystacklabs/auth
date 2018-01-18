@@ -1,81 +1,99 @@
+@import '../../../../shared/styles/variables';
+
+/*----------------------------------------------------------------------------*
+ * navbar
+ *----------------------------------------------------------------------------*/
 .navbar {
   background: rgba(255,255,255,0.98);
   box-shadow: 0 0 1px 0 rgba(0,0,0,0.50);
-  height: 56px;
-  line-height: 56px;
+  height: $navbar-height;
+  line-height: $navbar-height;
   text-align: left;
-
-  .logout {
-    color: #797D80;
-    cursor: pointer;
-
-    &.kit-Button__button--plain,
-    &.kit-Button__button--plain span {
-      padding: 0;
-    }
-  }
-
-  a:hover,
-  .logout:hover {
-    color: #5C6AC4;
-  }
-
-  .container {
-    max-width: 1180px;
-    margin: auto;
-    padding: 0 15px;
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-  }
-
-  ul li {
-    list-style: none;
-    display: inline-block;
-    float: left;
-    margin-left: 25px;
-
-    a {
-      color: #797D80
-    }
-
-    a.active {
-      color: #5C6AC4;
-    }
-  }
-  .navbar-right {
-    float: right;
-  }
 }
 
-.branding {
-  height: 56px;
+// container
+.navbar__container {
+  max-width: $navbar-max-width;
+  margin: auto;
+  padding: 0 15px;
+}
+
+// settings
+.navbar__settings {
+  float: right;
+}
+
+// ul
+.navbar__settings-list {
+  margin: 0;
+  padding: 0;
+}
+
+// li
+.navbar__settings-item {
+  list-style: none;
   display: inline-block;
+  float: left;
+  margin-left: 25px;
+}
 
-  img {
-    width: 36px;
-    height: 24px;
-    margin: 0;
-    display: inline-block;
-    padding-top: (56px - 24px)/2;
-  }
+// settings link
+li.navbar__settings-item a {
+  color: #797D80;
+}
 
-  h1 {
-    margin: 0;
-    display: inline-block;
-    margin: 0 5px 0 10px;
-  }
+.navbar__settings-item a.active {
+  color: $main;
+}
 
-  span {
-    display: inline-block;
-    margin: 0;
-  }
+/*----------------------------------------------------------------------------*
+ * branding
+ *----------------------------------------------------------------------------*/
+.navbar__branding {
+  height: $navbar-height;
+  display: inline-block;
+}
 
-  .logo {
-    height: 56px;
-    display: inline-block;
-    float: left;
-  }
+.navbar__branding span {
+  display: inline-block;
+  margin: 0;
+}
+
+// logo
+.navbar__branding-image {
+  width: 36px;
+  height: 24px;
+  margin: 0;
+  display: inline-block;
+  padding-top: 15px;
+}
+
+.navbar__branding-logo {
+  height: $navbar-height;
+  display: inline-block;
+  float: left;
+}
+// h1
+.navbar__branding-title {
+  display: inline-block;
+  margin: 0 5px 0 10px;
+}
+
+/*----------------------------------------------------------------------------*
+ * logout
+ *----------------------------------------------------------------------------*/
+.navbar__logout {
+  color: #797D80;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.navbar__logout,
+.navbar__logout span {
+  padding: 0;
+}
+
+.navbar a:hover,
+.navbar__logout span:hover {
+  color: $main;
 }

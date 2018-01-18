@@ -103,7 +103,7 @@ export class LoginForm extends React.Component {
     return (
       // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
       <form className="form" onSubmit={this.onSubmitForm} onKeyPress={this.onKeyPress}>
-        <div className="input">
+        <div className="form__input">
           <TextInput
             name="email"
             label="Email address"
@@ -113,7 +113,7 @@ export class LoginForm extends React.Component {
             error={this.state.errors.email}
           />
         </div>
-        <div className="input">
+        <div className="form__input">
           <TextInput
             name="password"
             label="Password"
@@ -125,8 +125,9 @@ export class LoginForm extends React.Component {
           />
         </div>
         <Button
+          className="form__button"
           size="large"
-          color="purple"
+          color="main"
           fullWidth
           loading={this.props.isLoading}
         >

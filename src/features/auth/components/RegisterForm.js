@@ -78,7 +78,7 @@ export class RegisterForm extends React.Component {
   render() {
     return (
       <form className="form" onSubmit={this.onSubmitForm}>
-        <div className="input">
+        <div className="form__input">
           <TextInput
             name="username"
             label="Username"
@@ -88,7 +88,7 @@ export class RegisterForm extends React.Component {
             error={this.state.errors.username || ((this.props.errors || {}).username || '')}
           />
         </div>
-        <div className="input">
+        <div className="form__input">
           <TextInput
             name="email"
             label="Email address"
@@ -98,7 +98,7 @@ export class RegisterForm extends React.Component {
             error={this.state.errors.email || ((this.props.errors || {}).email || '')}
           />
         </div>
-        <div className="input">
+        <div className="form__input">
           <TextInput
             name="password"
             label="Password"
@@ -110,15 +110,16 @@ export class RegisterForm extends React.Component {
           />
         </div>
         <Button
+          className="form__button"
           size="large"
-          color="purple"
+          color="main"
           fullWidth
           loading={this.props.isLoading}
         >
           Sign Up
         </Button>
-        <span className="terms">
-          <Text size="extraSmall">
+        <span className="register__terms">
+          <Text size="caption">
             By signing up, you agree to our <a href="/" target="blank">Terms</a> & <a href="/" target="blank">Privacy Policy</a>.
           </Text>
         </span>

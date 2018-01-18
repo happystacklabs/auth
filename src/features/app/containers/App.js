@@ -91,8 +91,8 @@ export class App extends Component {
       return (
         <div>
           <Navbar loading />
-          <section className="mainContainer">
-            <Spinner className="loadingApp" type="loader1" color="inkLight" size="large" />
+          <section className="main-container">
+            <Spinner className="main-container__spinner" type="loader1" color="inkLight" size="large" />
           </section>
         </div>
       );
@@ -100,7 +100,7 @@ export class App extends Component {
     return (
       <div>
         <Navbar currentUser={this.props.currentUser} logout={this.props.logout} />
-        <section className="mainContainer">
+        <section className="main-container">
           <Switch>
             <Route exact path="/" component={Home} />
             <PublicRoute path="/login" currentUser={this.props.currentUser} component={Login} />

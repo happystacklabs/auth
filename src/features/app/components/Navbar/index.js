@@ -7,14 +7,11 @@ import './Navbar.css';
 
 function Branding() {
   return (
-    <div className="branding">
-      <a href="http://happystack.io" target="blank" className="logo"><img src="./images/logo@2x.png" alt="Happystack" /></a>
-      <Link to="/"><Text element="h1" weight="bold" size="regular">Auth</Text></Link>
-      <Text color="purple">|
-        <a href="https://github.com/happystacklabs/auth" target="blank">
-          <Text color="purple">Repo</Text>
-        </a>
-      </Text>
+    <div className="navbar__branding">
+      <a href="http://happystack.io" target="blank" className="navbar__branding-logo">
+        <img className="navbar__branding-image" src="./images/logo@2x.png" alt="Happystack" />
+      </a>
+      <Link to="/"><Text className="navbar__branding-title" element="h1" size="display-small">Boilerplate</Text></Link>
     </div>
   );
 }
@@ -23,21 +20,29 @@ function Branding() {
 function Navigation(props) {
   if (props.currentUser) {
     return (
-      <div className="navbar-right">
-        <ul>
-          <li><Text><NavLink to="/dashboard">Dashboard</NavLink></Text></li>
-          <li><Text><NavLink to="/settings">Settings</NavLink></Text></li>
-          <li><Button plain size="large" onClick={props.logout} className="logout">Sign Out</Button></li>
-          <li><Avatar size="small" initial={props.currentUser.username} /></li>
+      <div className="navbar__settings">
+        <ul className="navbar__settings-list">
+          <li className="navbar__settings-item">
+            <Text bold><NavLink to="/dashboard">Dashboard</NavLink></Text>
+          </li>
+          <li className="navbar__settings-item">
+            <Text bold><NavLink to="/settings">Settings</NavLink></Text>
+          </li>
+          <li className="navbar__settings-item">
+            <Button plain size="medium" onClick={props.logout} className="navbar__logout">Sign Out</Button>
+          </li>
+          <li className="navbar__settings-item">
+            <Avatar size="small" initial={props.currentUser.username} />
+          </li>
         </ul>
       </div>
     );
   }
   return (
-    <div className="navbar-right">
-      <ul>
-        <li><Text><NavLink to="/login">Sign In</NavLink></Text></li>
-        <li><Text><NavLink to="/register">Sign Up</NavLink></Text></li>
+    <div className="navbar__settings">
+      <ul className="navbar__settings-list">
+        <li className="navbar__settings-item"><Text bold color="greyLight"><NavLink to="/login">Sign In</NavLink></Text></li>
+        <li className="navbar__settings-item"><Text bold><NavLink to="/register">Sign Up</NavLink></Text></li>
       </ul>
     </div>
   );
@@ -63,7 +68,7 @@ function Navbar(props) {
   if (props.loading) {
     return (
       <nav className="navbar">
-        <div className="container">
+        <div className="navbar__container">
           <Branding />
         </div>
       </nav>
@@ -71,7 +76,7 @@ function Navbar(props) {
   }
   return (
     <nav className="navbar">
-      <div className="container">
+      <div className="navbar__container">
         <Branding />
         <Navigation currentUser={props.currentUser} logout={props.logout} />
       </div>

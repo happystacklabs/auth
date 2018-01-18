@@ -96,7 +96,7 @@ export class SettingsForm extends React.Component {
   render() {
     return (
       <form className="form" onSubmit={this.onSubmitForm}>
-        <div className="input">
+        <div className="form__input">
           <TextInput
             name="username"
             label="Username"
@@ -106,7 +106,7 @@ export class SettingsForm extends React.Component {
             error={this.state.errors.username || ((this.props.errors || {}).username || '')}
           />
         </div>
-        <div className="input">
+        <div className="form__input">
           <TextInput
             name="email"
             label="Email address"
@@ -116,7 +116,7 @@ export class SettingsForm extends React.Component {
             error={this.state.errors.email || ((this.props.errors || {}).email || '')}
           />
         </div>
-        <div className="input">
+        <div className="form__input">
           <TextInput
             name="password"
             label="New Password"
@@ -128,8 +128,9 @@ export class SettingsForm extends React.Component {
           />
         </div>
         <Button
+          className="form__button"
           size="large"
-          color="purple"
+          color="main"
           fullWidth
           loading={this.props.isLoading}
         >
