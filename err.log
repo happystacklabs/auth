@@ -1,0 +1,237 @@
+ PASS  src/features/settings/tests/redux.test.js
+ PASS  src/features/app/tests/redux.test.js
+ PASS  src/features/auth/tests/redux.test.js
+ PASS  src/tests/agent.test.js
+ FAIL  src/features/auth/tests/LoginForm.test.js
+  ● LoginForm › onRedirectPasswordReset › will be called when passwordReset is cliked
+
+    expect(received).toBe(expected)
+    
+    Expected value to be (using ===):
+      1
+    Received:
+      0
+      
+      at Object.it (src/features/auth/tests/LoginForm.test.js:12:37)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+  ● LoginForm › isLoading › set the submit button to loading when passed to props
+
+    expect(received).toBe(expected)
+    
+    Expected value to be (using ===):
+      1
+    Received:
+      0
+      
+      at Object.it (src/features/auth/tests/LoginForm.test.js:33:64)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+  ● LoginForm › validate › show error message if email and password are empty
+
+    Method “simulate” is only meant to be run on a single node. 0 found instead.
+      
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1532:17)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:867:14)
+      at Object.it (src/features/auth/tests/LoginForm.test.js:40:33)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+  ● LoginForm › validate › show error message if password is less than 5 characters
+
+    Method “simulate” is only meant to be run on a single node. 0 found instead.
+      
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1532:17)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:867:14)
+      at Object.it (src/features/auth/tests/LoginForm.test.js:48:33)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+  ● LoginForm › validate › should clear the input error message when start typing again
+
+    Method “simulate” is only meant to be run on a single node. 0 found instead.
+      
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1532:17)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:867:14)
+      at Object.it (src/features/auth/tests/LoginForm.test.js:54:33)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+  ● LoginForm › validate › show error message if email is not valid
+
+    Method “simulate” is only meant to be run on a single node. 0 found instead.
+      
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1532:17)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:867:14)
+      at Object.it (src/features/auth/tests/LoginForm.test.js:66:33)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+  ● LoginForm › onSubmit() › does nothing if the form isnt valid
+
+    Method “simulate” is only meant to be run on a single node. 0 found instead.
+      
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1532:17)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:867:14)
+      at Object.it (src/features/auth/tests/LoginForm.test.js:75:33)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+  ● LoginForm › onSubmit() › send the email and password to the props callback if valid
+
+    Method “simulate” is only meant to be run on a single node. 0 found instead.
+      
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1532:17)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:867:14)
+      at Object.it (src/features/auth/tests/LoginForm.test.js:84:33)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+  ● LoginForm › onSubmit() › dont send the email and password if input are not valid
+
+    Method “simulate” is only meant to be run on a single node. 0 found instead.
+      
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1532:17)
+      at ReactWrapper.simulate (node_modules/enzyme/build/ReactWrapper.js:867:14)
+      at Object.it (src/features/auth/tests/LoginForm.test.js:93:33)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+ PASS  src/features/auth/tests/RegisterForm.test.js
+ PASS  src/features/settings/tests/SettingsForm.test.js
+ FAIL  src/features/app/components/Navbar/Navbar.test.js
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `color` of value `greyLight` supplied to `Text`, expected one of ["white","ink","ink-light","positive","negative","main"].
+          in Text (at index.js:44)
+          in Navigation (at index.js:81)
+          in div (at index.js:79)
+          in nav (at index.js:78)
+          in Navbar (at Navbar.test.js:11)
+          in Router (created by MemoryRouter)
+          in MemoryRouter (created by WrapperComponent)
+          in WrapperComponent
+
+  ● Navbar › show the avatar if loggued in
+
+    Method “text” is only meant to be run on a single node. 0 found instead.
+      
+      at ReactWrapper.single (node_modules/enzyme/build/ReactWrapper.js:1532:17)
+      at ReactWrapper.text (node_modules/enzyme/build/ReactWrapper.js:798:21)
+      at Object.it (src/features/app/components/Navbar/Navbar.test.js:54:60)
+          at new Promise (<anonymous>)
+      at Promise.resolve.then.el (node_modules/p-map/index.js:46:16)
+          at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
+
+ PASS  src/components/Dashboard/Dashboard.test.js
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `color` of value `greyLight` supplied to `Text`, expected one of ["white","ink","ink-light","positive","negative","main"].
+          in Text (at index.js:44)
+          in Navigation (at index.js:81)
+          in div (at index.js:79)
+          in nav (at index.js:78)
+          in Navbar (at App.js:102)
+          in div (at App.js:101)
+          in App (at Dashboard.test.js:32)
+          in Router (created by MemoryRouter)
+          in MemoryRouter (at Dashboard.test.js:31)
+          in Provider (created by WrapperComponent)
+          in WrapperComponent
+
+ PASS  src/features/app/tests/App.test.js
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `color` of value `inkLight` supplied to `Spinner`, expected one of ["ink","ink-light","positive","negative","main","white"].
+          in Spinner (at App.js:95)
+          in App (at App.test.js:25)
+          in Router (created by MemoryRouter)
+          in MemoryRouter (created by WrapperComponent)
+          in WrapperComponent
+
+ PASS  src/features/settings/tests/Settings.test.js
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `color` of value `greyLight` supplied to `Text`, expected one of ["white","ink","ink-light","positive","negative","main"].
+          in Text (at index.js:44)
+          in Navigation (at index.js:81)
+          in div (at index.js:79)
+          in nav (at index.js:78)
+          in Navbar (at App.js:102)
+          in div (at App.js:101)
+          in App (at Settings.test.js:32)
+          in Router (created by MemoryRouter)
+          in MemoryRouter (at Settings.test.js:31)
+          in Provider (created by WrapperComponent)
+          in WrapperComponent
+
+ PASS  src/features/auth/tests/routes.test.js
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `color` of value `greyLight` supplied to `Text`, expected one of ["white","ink","ink-light","positive","negative","main"].
+          in Text (at index.js:44)
+          in Navigation (at index.js:81)
+          in div (at index.js:79)
+          in nav (at index.js:78)
+          in Navbar (at App.js:102)
+          in div (at App.js:101)
+          in App (at routes.test.js:23)
+          in Router (created by MemoryRouter)
+          in MemoryRouter (at routes.test.js:22)
+          in Provider (created by WrapperComponent)
+          in WrapperComponent
+
+ PASS  src/components/PrivateRoute/PrivateRoute.test.js
+ PASS  src/components/PublicRoute/PublicRoute.test.js
+ PASS  src/features/auth/tests/Register.test.js
+ PASS  src/features/auth/tests/Login.test.js
+ PASS  src/features/auth/tests/PasswordReset.test.js
+ PASS  src/components/Home/Home.test.js
+  ● Console
+
+    console.error node_modules/fbjs/lib/warning.js:33
+      Warning: Failed prop type: Invalid prop `color` of value `greyLight` supplied to `Text`, expected one of ["white","ink","ink-light","positive","negative","main"].
+          in Text (at index.js:44)
+          in Navigation (at index.js:81)
+          in div (at index.js:79)
+          in nav (at index.js:78)
+          in Navbar (at App.js:102)
+          in div (at App.js:101)
+          in App (at Home.test.js:17)
+          in Router (created by MemoryRouter)
+          in MemoryRouter (created by WrapperComponent)
+          in WrapperComponent
+
+
+Test Suites: 2 failed, 16 passed, 18 total
+Tests:       10 failed, 127 passed, 137 total
+Snapshots:   0 total
+Time:        5.417s
+Ran all test suites.
+npm ERR! Test failed.  See above for more details.

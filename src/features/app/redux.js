@@ -41,14 +41,14 @@ export function appReducer(state = { token: null }, action) {
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
     case SETTINGS_SAVE_SUCCESS:
-      window.localStorage.setItem('jwt', action.response.user.token);
+      window.localStorage.setItem('jwt', action.response.token);
       // eslint-disable-next-line import/no-named-as-default-member
-      agent.setToken(action.response.user.token);
+      agent.setToken(action.response.token);
       return {
         ...state,
         redirectTo: '/dashboard',
-        token: action.response.user.token,
-        currentUser: action.response.user,
+        token: action.response.token,
+        currentUser: { username: action.response.username, email: action.response.email },
       };
     case LOGOUT:
       window.localStorage.setItem('jwt', '');
@@ -93,7 +93,8 @@ export function appLoad(token) {
       // eslint-disable-next-line import/no-named-as-default-member
       return agent.Auth.current().then(
         (response) => {
-          dispatch(appLoadSuccess(response.data.user, token));
+          const user = { username: response.data.username, email: response.data.email };
+          dispatch(appLoadSuccess(user, token));
         },
         () => {
           dispatch(appLoadFail());

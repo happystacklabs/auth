@@ -37,15 +37,9 @@ export const requests = {
 
 export const Auth = {
   current: () => requests.get('/user'),
-  login: (email, password) => requests.post('/users/login', { user: { email, password } }),
-  register: (username, email, password) => requests.post('/users', { user: { username, email, password } }),
-  save: (username, email, password) => {
-    const user = { username, email, password };
-    if (!user.password) {
-      delete user.password;
-    }
-    return requests.put('/user', { user });
-  },
+  login: (email, password) => requests.post('/users/login', { email, password }),
+  register: (username, email, password) => requests.post('/users', { username, email, password }),
+  save: (username, email, password) => requests.put('/user', { username, email, password }),
 };
 
 

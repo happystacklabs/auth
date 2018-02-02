@@ -46,7 +46,7 @@ describe('redux', () => {
       });
 
       it('should create an action APP_LOAD_SUCCESS after getting current user with token', () => {
-        const payload = { data: { user: 'foo' } };
+        const payload = { data: { username: 'foo', email: 'foo@bar.com' } };
         const token = 'foo';
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
@@ -54,14 +54,14 @@ describe('redux', () => {
             status: 200,
             response: payload,
           });
-        });
-        const expectedActions = [
-          { type: redux.APP_LOAD_START },
-          { type: redux.APP_LOAD_SUCCESS, response: payload.user, token },
-        ];
-        const store = mockStore({});
-        return store.dispatch(redux.appLoad(token)).then(() => {
-          expect(store.getActions()).toEqual(expectedActions);
+          const expectedActions = [
+            { type: redux.APP_LOAD_START },
+            { type: redux.APP_LOAD_SUCCESS, response: payload.data, token },
+          ];
+          const store = mockStore({});
+          return store.dispatch(redux.appLoad(token)).then(() => {
+            expect(store.getActions()).toEqual(expectedActions);
+          });
         });
       });
 
@@ -105,36 +105,31 @@ describe('redux', () => {
     describe('LOGIN_SUCCESS', () => {
       it('should handle LOGIN_SUCCESS', () => {
         const response = {
-          user: {
-            token: 'foo',
-          },
+          username: 'foo',
+          email: 'foo@bar.com',
         };
         expect((
           redux.appReducer([], { type: LOGIN_SUCCESS, response })
         )).toEqual((
-          { redirectTo: '/dashboard', token: response.user.token, currentUser: response.user }
+          { redirectTo: '/dashboard', token: response.token, currentUser: response }
         ));
       });
 
       it('should set token to agent', () => {
         agent.setToken = jest.fn();
         const response = {
-          user: {
-            token: 'foo',
-          },
+          token: 'foo',
         };
         expect(agent.setToken.mock.calls.length).toBe(0);
         redux.appReducer({}, { type: LOGIN_SUCCESS, response });
-        expect(agent.setToken.mock.calls.length).toBe(1);
         expect(agent.setToken.mock.calls[0][0]).toBe('foo');
+        expect(agent.setToken.mock.calls.length).toBe(1);
       });
 
       it('should add the token to localStorage', () => {
         window.localStorage.setItem('jwt', '');
         const response = {
-          user: {
-            token: 'foo',
-          },
+          token: 'foo',
         };
         expect(window.localStorage.getItem('jwt')).toBe('');
         redux.appReducer({}, { type: LOGIN_SUCCESS, response });
@@ -145,23 +140,20 @@ describe('redux', () => {
     describe('REGISTER', () => {
       it('should handle REGISTER_SUCCESS', () => {
         const response = {
-          user: {
-            token: 'foo',
-          },
+          username: 'foo',
+          email: 'foo@bar.com',
         };
         expect((
           redux.appReducer([], { type: REGISTER_SUCCESS, response })
         )).toEqual((
-          { redirectTo: '/dashboard', token: response.user.token, currentUser: response.user }
+          { redirectTo: '/dashboard', token: response.token, currentUser: response }
         ));
       });
 
       it('should set token to agent', () => {
         agent.setToken = jest.fn();
         const response = {
-          user: {
-            token: 'foo',
-          },
+          token: 'foo',
         };
         expect(agent.setToken.mock.calls.length).toBe(0);
         redux.appReducer({}, { type: REGISTER_SUCCESS, response });
@@ -172,9 +164,7 @@ describe('redux', () => {
       it('should add the token to localStorage', () => {
         window.localStorage.setItem('jwt', '');
         const response = {
-          user: {
-            token: 'foo',
-          },
+          token: 'foo',
         };
         expect(window.localStorage.getItem('jwt')).toBe('');
         redux.appReducer({}, { type: REGISTER_SUCCESS, response });
@@ -234,23 +224,20 @@ describe('redux', () => {
     describe('SETTINGS', () => {
       it('should handle SETTINGS_SAVE_SUCCESS', () => {
         const response = {
-          user: {
-            token: 'foo',
-          },
+          username: 'foo',
+          email: 'foo@bar.com',
         };
         expect((
           redux.appReducer([], { type: SETTINGS_SAVE_SUCCESS, response })
         )).toEqual((
-          { redirectTo: '/dashboard', token: response.user.token, currentUser: response.user }
+          { redirectTo: '/dashboard', token: response.token, currentUser: response }
         ));
       });
 
       it('should set token to agent', () => {
         agent.setToken = jest.fn();
         const response = {
-          user: {
-            token: 'foo',
-          },
+          token: 'foo',
         };
         expect(agent.setToken.mock.calls.length).toBe(0);
         redux.appReducer({}, { type: SETTINGS_SAVE_SUCCESS, response });
@@ -261,9 +248,7 @@ describe('redux', () => {
       it('should add the token to localStorage', () => {
         window.localStorage.setItem('jwt', '');
         const response = {
-          user: {
-            token: 'foo',
-          },
+          token: 'foo',
         };
         expect(window.localStorage.getItem('jwt')).toBe('');
         redux.appReducer({}, { type: SETTINGS_SAVE_SUCCESS, response });

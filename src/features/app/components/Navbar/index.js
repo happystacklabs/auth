@@ -41,7 +41,7 @@ function Navigation(props) {
   return (
     <div className="navbar__settings">
       <ul className="navbar__settings-list">
-        <li className="navbar__settings-item"><Text bold color="greyLight"><NavLink to="/login">Sign In</NavLink></Text></li>
+        <li className="navbar__settings-item"><Text bold color="ink-light"><NavLink to="/login">Sign In</NavLink></Text></li>
         <li className="navbar__settings-item"><Text bold><NavLink to="/register">Sign Up</NavLink></Text></li>
       </ul>
     </div>

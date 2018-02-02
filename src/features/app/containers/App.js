@@ -92,7 +92,7 @@ export class App extends Component {
         <div>
           <Navbar loading />
           <section className="main-container">
-            <Spinner className="main-container__spinner" type="loader1" color="inkLight" size="large" />
+            <Spinner className="main-container__spinner" type="loader1" color="ink-light" size="large" />
           </section>
         </div>
       );

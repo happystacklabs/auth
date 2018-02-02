@@ -103,7 +103,7 @@ export class SettingsForm extends React.Component {
             type="text"
             onChange={this.onChangeInput}
             value={this.state.username}
-            error={this.state.errors.username || ((this.props.errors || {}).username || '')}
+            error={this.state.errors.username || (((this.props.errors || {}).username || {}).msg || '')}
           />
         </div>
         <div className="form__input">
@@ -113,7 +113,7 @@ export class SettingsForm extends React.Component {
             type="email"
             onChange={this.onChangeInput}
             value={this.state.email}
-            error={this.state.errors.email || ((this.props.errors || {}).email || '')}
+            error={this.state.errors.email || (((this.props.errors || {}).email || {}).msg || '')}
           />
         </div>
         <div className="form__input">

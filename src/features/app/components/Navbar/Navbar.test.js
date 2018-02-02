@@ -51,7 +51,7 @@ describe('Navbar', () => {
         <Navbar currentUser={currentUser} />
       </MemoryRouter>
     ));
-    expect(navbar.find('.kit-Avatar__placeholder').first().text()).toBe('FO');
+    expect(navbar.find('.kit-avatar__placeholder').first().text()).toBe('FO');
   });
 
   it('show the settings and logout menu if loggued in', () => {
