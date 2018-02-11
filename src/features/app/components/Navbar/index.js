@@ -9,7 +9,7 @@ function Branding() {
   return (
     <div className="navbar__branding">
       <a href="http://happystack.io" target="blank" className="navbar__branding-logo">
-        <img className="navbar__branding-image" src="./images/logo@2x.png" alt="Happystack" />
+        <img className="navbar__branding-image" src="/images/logo@2x.png" alt="Happystack" />
       </a>
       <Link to="/"><Text className="navbar__branding-title" element="h1" size="display-small">Boilerplate</Text></Link>
     </div>

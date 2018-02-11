@@ -5,58 +5,94 @@ ignore:
   'npm:debug:20170905':
     - react-scripts > fsevents > node-pre-gyp > tar-pack > debug:
         reason: 'Beyond reach, waiting for CRA team to update.'
-        expires: '2018-02-07T10:52:43.780Z'
+        expires: '2018-03-13T11:01:04.253Z'
     - react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > tar-pack > debug:
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.780Z'
+      '@happystack/kit > react-scripts > fsevents > node-pre-gyp > tar-pack > debug':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
     - react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > tar-pack > debug:
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.780Z'
+      react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > tar-pack > debug:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
     - '@happystack/kit > react-scripts > fsevents > node-pre-gyp > tar-pack > debug':
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.780Z'
+      '@happystack/kit > react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > tar-pack > debug':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
     - '@happystack/kit > react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > tar-pack > debug':
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.780Z'
+      react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > tar-pack > debug:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
     - '@happystack/kit > react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > tar-pack > debug':
         reason: 'Beyond reach, waiting for CRA team to update.'
-        expires: '2018-02-07T10:52:43.780Z'
+        expires: '2018-03-13T11:01:04.253Z'
   'npm:tough-cookie:20170905':
     - react-scripts > fsevents > node-pre-gyp > request > tough-cookie:
         reason: 'Beyond reach, waiting for CRA team to update.'
-        expires: '2018-02-07T10:52:43.780Z'
+        expires: '2018-03-13T11:01:04.253Z'
     - react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.780Z'
+      '@happystack/kit > react-scripts > fsevents > node-pre-gyp > request > tough-cookie':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
     - react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.780Z'
+      react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
     - '@happystack/kit > react-scripts > fsevents > node-pre-gyp > request > tough-cookie':
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.781Z'
+      '@happystack/kit > react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > request > tough-cookie':
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
     - '@happystack/kit > react-scripts > webpack-dev-server > chokidar > fsevents > node-pre-gyp > request > tough-cookie':
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.781Z'
+      react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > tough-cookie:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
     - '@happystack/kit > react-scripts > webpack > watchpack > chokidar > fsevents > node-pre-gyp > request > tough-cookie':
         reason: 'Beyond reach, waiting for CRA team to update.'
-        expires: '2018-02-07T10:52:43.781Z'
+        expires: '2018-03-13T11:01:04.253Z'
   'npm:content-type-parser:20170905':
     - react-scripts > jest > jest-cli > jest-environment-jsdom > jsdom > content-type-parser:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
+    - react-scripts > jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > content-type-parser:
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.781Z'
       '@happystack/kit > react-scripts > jest > jest-cli > jest-environment-jsdom > jsdom > content-type-parser':
         reason: None given
-        expires: '2018-02-09T05:37:43.204Z'
-    - react-scripts > jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > content-type-parser:
-        reason: 'Beyond reach, waiting for CRA team to update.'
-        expires: '2018-02-07T10:52:43.781Z'
-      '@happystack/kit > react-scripts > jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > content-type-parser':
-        reason: None given
-        expires: '2018-02-09T05:37:43.204Z'
+        expires: '2018-03-13T11:01:04.253Z'
     - react-scripts > jest > jest-cli > jest-runtime > jest-config > jest-environment-jsdom > jsdom > content-type-parser:
         reason: 'Beyond reach, waiting for CRA team to update.'
         expires: '2018-02-07T10:52:43.781Z'
-      '@happystack/kit > react-scripts > jest > jest-cli > jest-runtime > jest-config > jest-environment-jsdom > jsdom > content-type-parser':
+      react-scripts > jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > content-type-parser:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.253Z'
+    - '@happystack/kit > react-scripts > jest > jest-cli > jest-environment-jsdom > jsdom > content-type-parser':
         reason: None given
         expires: '2018-02-09T05:37:43.204Z'
+      '@happystack/kit > react-scripts > jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > content-type-parser':
+        reason: None given
+        expires: '2018-03-13T11:01:04.253Z'
+    - '@happystack/kit > react-scripts > jest > jest-cli > jest-config > jest-environment-jsdom > jsdom > content-type-parser':
+        reason: None given
+        expires: '2018-02-09T05:37:43.204Z'
+      react-scripts > jest > jest-cli > jest-runtime > jest-config > jest-environment-jsdom > jsdom > content-type-parser:
+        reason: 'Beyond reach, waiting for CRA team to update.'
+        expires: '2018-03-13T11:01:04.254Z'
+    - '@happystack/kit > react-scripts > jest > jest-cli > jest-runtime > jest-config > jest-environment-jsdom > jsdom > content-type-parser':
+        reason: None given
+        expires: '2018-03-13T11:01:04.254Z'
 patch: {}
