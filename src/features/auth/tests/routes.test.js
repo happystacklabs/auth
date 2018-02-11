@@ -3,10 +3,10 @@ import { mount } from 'enzyme';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Login } from '../containers/Login';
+import { PasswordForgot } from '../containers/PasswordForgot';
 import { App } from '../../app/containers/App';
 import { store } from '../../../store';
 import { Register } from '../containers/Register';
-import PasswordReset from '../containers/PasswordReset';
 import localStorageMock from '../../../__mocks__/localStorage';
 
 
@@ -66,14 +66,17 @@ describe('auth::routes', () => {
     });
   });
 
-  describe('PasswordReset', () => {
-    it('render PasswordReset on /password/new', () => {
+  describe('PasswordForgot', () => {
+    it('render PasswordForgot on /password/new', () => {
+      const currentUser = undefined;
       const app = mount((
-        <Router initialEntries={['/password/new']}>
-          <App onLoad={() => {}} appLoaded />
-        </Router>
+        <Provider store={store}>
+          <Router initialEntries={['/password/new']}>
+            <App onLoad={() => {}} currentUser={currentUser} appLoaded />
+          </Router>
+        </Provider>
       ));
-      expect(app.containsMatchingElement(<PasswordReset />)).toBe(true);
+      expect(app.containsMatchingElement(<PasswordForgot />)).toBe(true);
     });
   });
 });

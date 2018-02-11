@@ -137,7 +137,117 @@ describe('redux', () => {
       });
     });
 
-    describe('LOGIN_PAGE_UNLOADED and REGISTER_PAGE_UNLOADED', () => {
+    describe('PASSWORD_FORGOT', () => {
+      it('creates PASSWORD_FORGOT_START', () => {
+        const expectedAction = { type: redux.PASSWORD_FORGOT_START };
+        expect(redux.passwordForgotStart()).toEqual(expectedAction);
+      });
+
+      it('creates PASSWORD_FORGOT_FAIL', () => {
+        const expectedAction = { type: redux.PASSWORD_FORGOT_FAIL };
+        expect(redux.passwordForgotFail()).toEqual(expectedAction);
+      });
+
+      it('creates PASSWORD_FORGOT_SUCCESS', () => {
+        const expectedAction = { type: redux.PASSWORD_FORGOT_SUCCESS, response: 'foo' };
+        expect(redux.passwordForgotSuccess('foo')).toEqual(expectedAction);
+      });
+
+      it('creates PASSWORD_FORGOT_SUCCESS after post passwordForgot', () => {
+        const payload = { data: 'success' };
+        moxios.wait(() => {
+          const request = moxios.requests.mostRecent();
+          request.respondWith({
+            status: 200,
+            response: payload,
+          });
+        });
+        const expectedActions = [
+          { type: redux.PASSWORD_FORGOT_START },
+          { type: redux.PASSWORD_FORGOT_SUCCESS, response: payload },
+        ];
+        const store = mockStore({});
+        return store.dispatch(redux.passwordForgot('foo@bar.com')).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
+
+      it('creates PASSWORD_FORGOT_FAIL after failing to post passwordForgot', () => {
+        const errors = { errors: 'fail' };
+        moxios.wait(() => {
+          const request = moxios.requests.mostRecent();
+          request.respondWith({
+            status: 422,
+            response: errors,
+          });
+        });
+        const expectedActions = [
+          { type: redux.REGISTER_START },
+          { type: redux.REGISTER_FAIL, error: 'fail' },
+        ];
+        const store = mockStore({});
+        return store.dispatch(redux.register('foo', 'foo@bar.com', 'foobar')).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
+    });
+
+    describe('PASSWORD_RESET', () => {
+      it('creates PASSWORD_RESET_START', () => {
+        const expectedAction = { type: redux.PASSWORD_RESET_START };
+        expect(redux.passwordResetStart()).toEqual(expectedAction);
+      });
+
+      it('creates PASSWORD_RESET_FAIL', () => {
+        const expectedAction = { type: redux.PASSWORD_RESET_FAIL };
+        expect(redux.passwordResetFail()).toEqual(expectedAction);
+      });
+
+      it('creates PASSWORD_RESET_SUCCESS', () => {
+        const expectedAction = { type: redux.PASSWORD_RESET_SUCCESS, response: 'foo' };
+        expect(redux.passwordResetSuccess('foo')).toEqual(expectedAction);
+      });
+
+      it('creates PASSWORD_RESET_SUCCESS after post passwordReset', () => {
+        const payload = { data: 'success' };
+        moxios.wait(() => {
+          const request = moxios.requests.mostRecent();
+          request.respondWith({
+            status: 200,
+            response: payload,
+          });
+        });
+        const expectedActions = [
+          { type: redux.PASSWORD_RESET_START },
+          { type: redux.PASSWORD_RESET_SUCCESS, response: payload },
+        ];
+        const store = mockStore({});
+        return store.dispatch(redux.passwordReset('foobar', 'foobar', 'token')).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
+
+      it('creates PASSWORD_RESET_FAIL after failing to post passwordReset', () => {
+        const errors = { errors: 'fail' };
+        moxios.wait(() => {
+          const request = moxios.requests.mostRecent();
+          request.respondWith({
+            status: 422,
+            response: errors,
+          });
+        });
+        const expectedActions = [
+          { type: redux.PASSWORD_RESET_START },
+          { type: redux.PASSWORD_RESET_FAIL, error: 'fail' },
+        ];
+        const store = mockStore({});
+        return store.dispatch(redux.passwordReset('foobar', 'foobar', 'token')).then(() => {
+          expect(store.getActions()).toEqual(expectedActions);
+        });
+      });
+    });
+
+    describe('LOGIN_PAGE_UNLOADED, PASSWORD_FORGOT_PAGE_UNLOADED, PASSWORD_RESET_PAGE_UNLOADED and REGISTER_PAGE_UNLOADED', () => {
       it('creates LOGIN_PAGE_UNLOADED', () => {
         const expectedAction = { type: redux.LOGIN_PAGE_UNLOADED };
         expect(redux.loginPageUnloaded()).toEqual(expectedAction);
@@ -146,6 +256,16 @@ describe('redux', () => {
       it('creates REGISTER_PAGE_UNLOADED', () => {
         const expectedAction = { type: redux.REGISTER_PAGE_UNLOADED };
         expect(redux.registerPageUnloaded()).toEqual(expectedAction);
+      });
+
+      it('creates PASSWORD_FORGOT_PAGE_UNLOADED', () => {
+        const expectedAction = { type: redux.PASSWORD_FORGOT_PAGE_UNLOADED };
+        expect(redux.passwordForgotPageUnloaded()).toEqual(expectedAction);
+      });
+
+      it('creates PASSWORD_RESET_PAGE_UNLOADED', () => {
+        const expectedAction = { type: redux.PASSWORD_RESET_PAGE_UNLOADED };
+        expect(redux.passwordResetPageUnloaded()).toEqual(expectedAction);
       });
     });
   });
@@ -200,7 +320,47 @@ describe('redux', () => {
       });
     });
 
-    describe('LOGIN_PAGE_UNLOADED and REGISTER_PAGE_UNLOADED', () => {
+    describe('PASSWORD_FORGOT', () => {
+      it('should handle PASSWORD_FORGOT_START', () => {
+        expect((
+          redux.authReducer([], { type: redux.PASSWORD_FORGOT_START })
+        )).toEqual({ inProgress: true });
+      });
+
+      it('should handle PASSWORD_FORGOT_FAIL', () => {
+        expect((
+          redux.authReducer({ inProgress: true }, { type: redux.PASSWORD_FORGOT_FAIL, error: 'foo' })
+        )).toEqual({ inProgress: false, errors: 'foo' });
+      });
+
+      it('should handle PASSWORD_FORGOT_SUCCESS', () => {
+        expect((
+          redux.authReducer({ inProgress: true }, { type: redux.PASSWORD_FORGOT_SUCCESS })
+        )).toEqual({ inProgress: false, emailSent: true, errors: {} });
+      });
+    });
+
+    describe('PASSWORD_RESET', () => {
+      it('should handle PASSWORD_RESET_START', () => {
+        expect((
+          redux.authReducer([], { type: redux.PASSWORD_RESET_START })
+        )).toEqual({ inProgress: true });
+      });
+
+      it('should handle PASSWORD_RESET_FAIL', () => {
+        expect((
+          redux.authReducer({ inProgress: true }, { type: redux.PASSWORD_RESET_FAIL, error: 'foo' })
+        )).toEqual({ inProgress: false, errors: 'foo' });
+      });
+
+      it('should handle PASSWORD_RESET_SUCCESS', () => {
+        expect((
+          redux.authReducer({ inProgress: true }, { type: redux.PASSWORD_RESET_SUCCESS })
+        )).toEqual({ inProgress: false, passwordReset: true, errors: {} });
+      });
+    });
+
+    describe('LOGIN_PAGE_UNLOADED, PASSWORD_FORGOT_PAGE_UNLOADED, PASSWORD_RESET_PAGE_UNLOADED and REGISTER_PAGE_UNLOADED', () => {
       it('should handle LOGIN_PAGE_UNLOADED', () => {
         expect((
           redux.authReducer({ errors: {} }, { type: redux.LOGIN_PAGE_UNLOADED })
@@ -210,6 +370,18 @@ describe('redux', () => {
       it('should handle REGISTER_PAGE_UNLOADED', () => {
         expect((
           redux.authReducer({ errors: {} }, { type: redux.REGISTER_PAGE_UNLOADED })
+        )).toEqual({});
+      });
+
+      it('should handle PASSWORD_FORGOT_PAGE_UNLOADED', () => {
+        expect((
+          redux.authReducer({ errors: {} }, { type: redux.PASSWORD_FORGOT_PAGE_UNLOADED })
+        )).toEqual({});
+      });
+
+      it('should handle PASSWORD_RESET_PAGE_UNLOADED', () => {
+        expect((
+          redux.authReducer({ errors: {} }, { type: redux.PASSWORD_RESET_PAGE_UNLOADED })
         )).toEqual({});
       });
     });

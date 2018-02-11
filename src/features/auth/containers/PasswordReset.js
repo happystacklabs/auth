@@ -1,46 +1,70 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextInput, Button, Text } from '@happystack/kit';
-import '../styles/PasswordReset.css';
-import '../styles/Panel.css';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { Text } from '@happystack/kit';
+import PasswordResetForm from '../components/PasswordResetForm';
+import { passwordReset, passwordResetPageUnloaded } from '../redux';
+
+
+const mapStateToProps = state => ({ ...state.auth });
+
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (password, passwordConfirm, token) => {
+    dispatch(passwordReset(password, passwordConfirm, token));
+  },
+  onUnload: () => {
+    dispatch(passwordResetPageUnloaded());
+  },
+});
 
 
 const propTypes = {
-  history: PropTypes.shape({
-    goBack: PropTypes.func,
-  }),
+  onSubmit: PropTypes.func,
+  match: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  inProgress: PropTypes.bool,
+  errors: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  onUnload: PropTypes.func,
+  passwordReset: PropTypes.bool,
 };
 
 
 const defaultProps = {
-  history: undefined,
+  onSubmit: undefined,
+  match: undefined,
+  inProgress: false,
+  errors: undefined,
+  onUnload: undefined,
+  passwordReset: undefined,
 };
 
 
-export function PasswordReset(props) {
-  return (
-    <div>
-      <h1>Password Reset</h1>
-      <div className="panel password-reset">
-        <div className="panel__content">
-          <Text element="p" size="caption">Enter your email address and we will send you a link to reset your password.</Text>
-          <form className="form">
-            <div className="form__input">
-              <TextInput
-                name="email"
-                label="Email address"
-                type="email"
-              />
-            </div>
-            <Button className="form__button" size="large" color="main" fullWidth>Send Reset Link</Button>
-          </form>
-          <span className="password-reset__cancel">
-            <Button plain fullWidth onClick={props.history.goBack}>Cancel</Button>
-          </span>
+export class PasswordReset extends React.Component {
+  componentWillUnmount() {
+    this.props.onUnload();
+  }
+
+  render() {
+    if (this.props.passwordReset) {
+      return (<Redirect to="/login" />);
+    }
+    return (
+      <div>
+        <h1>Reset Password</h1>
+        <div className="panel password-reset">
+          <div className="panel__content">
+            <Text color="negative">{(((this.props.errors) || {}).token || {}).msg}</Text>
+            <PasswordResetForm
+              onSubmit={this.props.onSubmit}
+              isLoading={this.props.inProgress}
+              token={this.props.match.params.token}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 
@@ -48,4 +72,4 @@ PasswordReset.propTypes = propTypes;
 PasswordReset.defaultProps = defaultProps;
 
 
-export default PasswordReset;
+export default connect(mapStateToProps, mapDispatchToProps)(PasswordReset);

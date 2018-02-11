@@ -40,6 +40,8 @@ export const Auth = {
   login: (email, password) => requests.post('/users/login', { email, password }),
   register: (username, email, password) => requests.post('/users', { username, email, password }),
   save: (username, email, password) => requests.put('/user', { username, email, password }),
+  passwordForgot: email => requests.post('/users/forgot', { email }),
+  passwordReset: (password, passwordConfirm, resetToken) => requests.post('/users/reset', { password, passwordConfirm, token: resetToken }),
 };
 
 

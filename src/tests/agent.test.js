@@ -113,4 +113,20 @@ describe('agent', () => {
       expect(agent.token).toBe('foo');
     });
   });
+
+  describe('passwordForgot', () => {
+    it('make a post request to /users/forgot', () => {
+      agent.requests.post = jest.fn();
+      agent.requests.post.mockImplementation(() => ({ response: 'foo' }));
+      expect(agent.Auth.passwordForgot('foo@bar.com')).toEqual({ response: 'foo' });
+    });
+  });
+
+  describe('passwordReset', () => {
+    it('make a post request to /users/reset', () => {
+      agent.requests.post = jest.fn();
+      agent.requests.post.mockImplementation(() => ({ response: 'foo' }));
+      expect(agent.Auth.passwordReset('foobar', 'foobar', 'token')).toEqual({ response: 'foo' });
+    });
+  });
 });

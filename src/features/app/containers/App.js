@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import Login from '../../auth/containers/Login';
 import Home from '../../../components/Home/Home';
 import Register from '../../auth/containers/Register';
+import PasswordForgot from '../../auth/containers/PasswordForgot';
 import PasswordReset from '../../auth/containers/PasswordReset';
 import Dashboard from '../../../components/Dashboard/Dashboard';
 import Settings from '../../settings/containers/Settings';
@@ -105,7 +106,8 @@ export class App extends Component {
             <Route exact path="/" component={Home} />
             <PublicRoute path="/login" currentUser={this.props.currentUser} component={Login} />
             <PublicRoute path="/register" currentUser={this.props.currentUser} component={Register} />
-            <Route path="/password/new" component={PasswordReset} />
+            <Route path="/password/new" component={PasswordForgot} />
+            <Route path="/password/reset/:token" component={PasswordReset} />
             <PrivateRoute path="/dashboard" currentUser={this.props.currentUser} component={Dashboard} />
             <PrivateRoute path="/settings" currentUser={this.props.currentUser} component={Settings} />
           </Switch>
