@@ -1,16 +1,13 @@
 
-[1m    Surge[22m - surge.sh
+Testing /Users/heinrich/Documents/happystack/boilerplate/frontend/frontend-boilerplate-codebase...
+Organisation: heinrichtremblay
+Package manager: npm
+Target file: package.json
+Open source: no
+Local Snyk policy found
 
-[90m              email:[39m surge@happystack.io
-[90m              token:[39m [90m*****************[39m
-[90m       project path:[39m ./build
-[90m               size: [39m11 files, 3.6 MB
-[90m             domain:[39m boilerplate.happystack.io
+✓ Tested 1062 dependencies for known vulnerabilities, no vulnerable paths found.
 
-
-[90m               plan:[39m Free
-[90m              users:[39m surge@happystack.io
-[90m         IP Address:[39m 45.55.110.124
-
-[32m    Success![39m Project is published and running at [4m[32mboilerplate.happystack.io[39m[24m
-
+Next steps:
+- Run `snyk monitor` to be notified about new related vulnerabilities.
+- Run `snyk test` as part of your CI/test.
