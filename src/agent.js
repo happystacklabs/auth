@@ -4,7 +4,7 @@ import axios from 'axios';
 require('dotenv').config();
 
 
-export const API_ROOT = process.env.NODE_ENV === 'production' ? 'http://boilerplateapi.happystack.io/api' : 'http://localhost:3001/api';
+export const API_ROOT = process.env.NODE_ENV === 'production' ? 'http://inboxapi.happystack.io/api' : 'http://localhost:3001/api';
 axios.defaults.baseURL = API_ROOT;
 
 
