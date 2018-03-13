@@ -48,26 +48,26 @@ tasksCommand[1]='npm run lint'
 ###############################################################################
 # Task 3
 ###############################################################################
-tasks[2]='Snyk security audit'
-tasksCommand[2]='snyk test'
+# tasks[2]='Snyk security audit'
+# tasksCommand[2]='snyk test'
 
 
 ###############################################################################
 # Task 4
 ###############################################################################
-tasks[3]='Run build'
-tasksCommand[3]='npm run build'
+tasks[2]='Run build'
+tasksCommand[2]='npm run build'
 
 
 ################################################################################
 # Task 5
 ################################################################################
-tasks[4]='Run 200.html'
-tasksCommand[4]='cp -rf ./build/index.html ./build/200.html'
+tasks[3]='Run 200.html'
+tasksCommand[3]='cp -rf ./build/index.html ./build/200.html'
 
 
 ################################################################################
 # Task 6
 ################################################################################
-tasks[5]='Deploy to Surge'
-tasksCommand[5]='surge ./build  boilerplate.happystack.io'
+tasks[4]='Deploy to Surge'
+tasksCommand[4]='surge ./build  boilerplate.happystack.io'

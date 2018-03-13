@@ -31,8 +31,12 @@ function Navigation(props) {
           <li className="navbar__settings-item">
             <Button plain size="medium" onClick={props.logout} className="navbar__logout">Sign Out</Button>
           </li>
-          <li className="navbar__settings-item">
-            <Avatar size="small" initial={props.currentUser.username} />
+          <li className="navbar__settings-item navbar_settings-avatar">
+            <Avatar
+              size="small"
+              initial={props.currentUser.username}
+              source={props.currentUser.avatar}
+            />
           </li>
         </ul>
       </div>
@@ -53,6 +57,7 @@ Navigation.propTypes = {
     username: PropTypes.string,
     email: PropTypes.string,
     token: PropTypes.string,
+    avatar: PropTypes.string,
   }),
   logout: PropTypes.func,
 };

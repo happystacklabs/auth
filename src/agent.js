@@ -32,6 +32,7 @@ export const requests = {
   get: url => axios.get(`${API_ROOT}${url}`).then(responseBody),
   post: (url, body) => axios.post(`${API_ROOT}${url}`, body).then(responseBody),
   put: (url, body) => axios.put(`${API_ROOT}${url}`, body).then(responseBody),
+  delete: url => axios.delete(`${API_ROOT}${url}`).then(responseBody),
 };
 
 
@@ -42,6 +43,8 @@ export const Auth = {
   save: (username, email, password) => requests.put('/user', { username, email, password }),
   passwordForgot: email => requests.post('/users/forgot', { email }),
   passwordReset: (password, passwordConfirm, resetToken) => requests.post('/users/reset', { password, passwordConfirm, token: resetToken }),
+  uploadAvatar: data => requests.post('/user/avatar', data),
+  removeAvatar: () => requests.delete('/user/avatar'),
 };
 
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Settings } from '../containers/Settings';
+import { SettingsAvatar } from '../components/SettingsAvatar';
 import { App } from '../../app/containers/App';
 import localStorageMock from '../../../__mocks__/localStorage';
 import { store } from '../../../store';
@@ -12,24 +13,11 @@ window.localStorage = localStorageMock;
 
 describe('Settings', () => {
   describe('Route', () => {
-    it('render Dashboard on /dashboard', () => {
-      const currentUser = { username: 'foo' };
-      const app = mount((
-        <Provider store={store}>
-          <Router initialEntries={['/settings']}>
-            <App onLoad={() => {}} currentUser={currentUser} appLoaded />
-          </Router>
-        </Provider>
-      ));
-      expect(app.containsMatchingElement(<Settings />)).toBe(true);
-    });
-
     it('redirect to /login when not loggued in', () => {
-      const currentUser = undefined;
       const app = mount((
         <Provider store={store}>
           <Router initialEntries={['/settings']}>
-            <App onLoad={() => {}} currentUser={currentUser} appLoaded />
+            <App onLoad={() => {}} appLoaded />
           </Router>
         </Provider>
       ));
@@ -40,10 +28,18 @@ describe('Settings', () => {
   describe('onUnload', () => {
     it('call the props onOnload when the component unmount', () => {
       const spy = jest.fn();
-      const settings = mount(<Router><Settings onUnload={spy} /></Router>);
+      const current = { username: 'foo' };
+      const settings = mount(<Router><Settings currentUser={current} onUnload={spy} /></Router>);
       expect(spy.mock.calls.length).toBe(0);
       settings.unmount();
       expect(spy.mock.calls.length).toBe(1);
+    });
+  });
+
+  describe('Avatar', () => {
+    it('render in the settings', () => {
+      const settings = shallow(<Settings />);
+      expect(settings.containsMatchingElement(<SettingsAvatar />)).toBe(true);
     });
   });
 });

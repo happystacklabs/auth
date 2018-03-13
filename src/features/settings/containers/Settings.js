@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import '../styles/Settings.css';
 import { SettingsForm } from '../components/SettingsForm';
-import { save, settingsPageUnloaded } from '../redux';
+import { SettingsAvatar } from '../components/SettingsAvatar';
+import { save, settingsPageUnloaded, uploadAvatar, removeAvatar } from '../redux';
 
 
 const mapStateToProps = state => ({
@@ -19,28 +20,41 @@ const mapDispatchToProps = dispatch => ({
   onUnload: () => {
     dispatch(settingsPageUnloaded());
   },
+  onUpload: (data) => {
+    dispatch(uploadAvatar(data));
+  },
+  onRemove: () => {
+    dispatch(removeAvatar());
+  },
 });
 
 
 const propTypes = {
   onSubmit: PropTypes.func,
   inProgress: PropTypes.bool,
+  avatarSuccess: PropTypes.bool,
   currentUser: PropTypes.shape({
     username: PropTypes.string,
     email: PropTypes.string,
     token: PropTypes.string,
+    avatar: PropTypes.string,
   }),
   errors: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   onUnload: PropTypes.func,
+  onUpload: PropTypes.func,
+  onRemove: PropTypes.func,
 };
 
 
 const defaultProps = {
   onSubmit: undefined,
   inProgress: false,
-  currentUser: null,
+  avatarSuccess: false,
+  currentUser: undefined,
   errors: undefined,
   onUnload: undefined,
+  onUpload: undefined,
+  onRemove: undefined,
 };
 
 
@@ -55,6 +69,12 @@ export class Settings extends React.Component {
         <h1>Settings</h1>
         <div className="panel settings">
           <div className="panel__content">
+            <SettingsAvatar
+              currentUser={this.props.currentUser}
+              onChange={this.props.onUpload}
+              success={this.props.avatarSuccess}
+              onRemove={this.props.onRemove}
+            />
             <SettingsForm
               onSubmit={this.props.onSubmit}
               isLoading={this.props.inProgress}

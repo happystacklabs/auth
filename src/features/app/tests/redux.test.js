@@ -8,7 +8,11 @@ import {
   REGISTER_SUCCESS,
 } from '../../auth/redux';
 import * as redux from '../redux';
-import { SETTINGS_SAVE_SUCCESS } from '../../settings/redux';
+import {
+  SETTINGS_SAVE_SUCCESS,
+  SETTINGS_AVATAR_SUCCESS,
+  REMOVE_AVATAR_SUCCESS,
+} from '../../settings/redux';
 import localStorageMock from '../../../__mocks__/localStorage';
 import agent from '../../../agent';
 
@@ -254,6 +258,30 @@ describe('redux', () => {
         redux.appReducer({}, { type: SETTINGS_SAVE_SUCCESS, response });
         expect(window.localStorage.getItem('jwt')).toBe('foo');
       });
+    });
+  });
+
+  describe('Settings Avatar', () => {
+    it('should handle SETTINGS_AVATAR_SUCCESS', () => {
+      const response = {
+        currentUser: {},
+      };
+      expect((
+        redux.appReducer([], { type: SETTINGS_AVATAR_SUCCESS, response })
+      )).toEqual((
+        { currentUser: {} }
+      ));
+    });
+
+    it('should handle REMOVE_AVATAR_SUCCESS', () => {
+      const response = {
+        currentUser: {},
+      };
+      expect((
+        redux.appReducer([], { type: REMOVE_AVATAR_SUCCESS, response })
+      )).toEqual((
+        { currentUser: {} }
+      ));
     });
   });
 });

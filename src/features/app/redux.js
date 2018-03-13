@@ -4,7 +4,11 @@ import {
   LOGOUT,
   REGISTER_SUCCESS,
 } from '../auth/redux';
-import { SETTINGS_SAVE_SUCCESS } from '../settings/redux';
+import {
+  SETTINGS_SAVE_SUCCESS,
+  SETTINGS_AVATAR_SUCCESS,
+  REMOVE_AVATAR_SUCCESS,
+} from '../settings/redux';
 import agent from '../../agent';
 
 
@@ -48,7 +52,17 @@ export function appReducer(state = { token: null }, action) {
         ...state,
         redirectTo: '/dashboard',
         token: action.response.token,
-        currentUser: { username: action.response.username, email: action.response.email },
+        currentUser: {
+          username: action.response.username,
+          email: action.response.email,
+          avatar: action.response.avatar,
+        },
+      };
+    case SETTINGS_AVATAR_SUCCESS:
+    case REMOVE_AVATAR_SUCCESS:
+      return {
+        ...state,
+        currentUser: action.response.currentUser,
       };
     case LOGOUT:
       window.localStorage.setItem('jwt', '');
@@ -93,7 +107,11 @@ export function appLoad(token) {
       // eslint-disable-next-line import/no-named-as-default-member
       return agent.Auth.current().then(
         (response) => {
-          const user = { username: response.data.username, email: response.data.email };
+          const user = {
+            username: response.data.username,
+            email: response.data.email,
+            avatar: response.data.avatar,
+          };
           dispatch(appLoadSuccess(user, token));
         },
         () => {

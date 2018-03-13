@@ -41,6 +41,9 @@ li.navbar__settings-item a {
 .navbar__settings-item a.active {
   color: #5c6ac4; }
 
+.navbar_settings-avatar img {
+  margin-top: 10px; }
+
 /*----------------------------------------------------------------------------*
  * branding
  *----------------------------------------------------------------------------*/

@@ -25,7 +25,7 @@ describe('App', () => {
         <App onLoad={() => {}} />
       </Router>
     ));
-    expect(app.contains('Loading...')).toBe(true);
+    expect(app.find('Spinner').length).toBe(1);
   });
 
   describe('onLoad()', () => {
