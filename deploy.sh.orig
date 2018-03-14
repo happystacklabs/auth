@@ -69,5 +69,10 @@ tasksCommand[3]='cp -rf ./build/index.html ./build/200.html'
 ################################################################################
 # Task 6
 ################################################################################
+<<<<<<< HEAD
+tasks[4]='Deploy to Surge'
+tasksCommand[4]='surge ./build  boilerplate.happystack.io'
+=======
 tasks[5]='Deploy to Surge'
-tasksCommand[5]='surge ./build  boilerplate.happystack.io'
+tasksCommand[5]='surge ./build  inbox.happystack.io'
+>>>>>>> 7479aa1574792475ade038bc6f6f8f564b13b3be
